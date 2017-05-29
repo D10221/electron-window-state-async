@@ -9,7 +9,8 @@
     "test": "electron-mocha test.js",
     "build": "tsc -p .",
     "clean": "rimraf ./built",
-    "rebuild": "npm run clean && npm run build"
+    "rebuild": "npm run clean && npm run build",
+    "gen:docs": "typedoc --out docs --mode file --exclude  __test__"
   },
   "keywords": ["eLectron", "window", "state", "async", "store"],
   "author": "D10221",
