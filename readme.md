@@ -3,13 +3,17 @@
 inspired by **[electron-window-state](https://github.com/mawie81/electron-window-state)**
 
 
-Usage:
+Intended Usage:
 
     const win = new BrowserWindow();
-    const store = WindowStateStore(w);
+    const store = WindowStateStore(w);    
     const subscription = store.subscribe();
     // ...
     win.on("close", ()=>{
         // ....
         subscription.unsubscribe();
-    })
+    });
+    app.on("ready", async ()=>{
+        // ...
+        await store.restore();
+    });
