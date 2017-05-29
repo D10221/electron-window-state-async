@@ -17,3 +17,5 @@ Intended Usage:
         // ...
         await store.restore();
     });
+
+[Docs:](https://d10221.github.io/electron-window-state-async/)
