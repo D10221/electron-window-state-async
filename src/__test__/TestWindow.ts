@@ -2,6 +2,9 @@
 import { BrowserWindowLike, RectangleLike, WebContentsLike } from "../types";
 import events = require("events");
 
+/**
+ * Options for TestWindow, override default values
+ */
 export interface TestWindowOptions {
     bounds?: RectangleLike;
     isDevToolsOpened?: boolean;
@@ -11,7 +14,9 @@ export interface TestWindowOptions {
     id?: string;
 }
 
-// import * as e from "electron";
+/**
+ * @summery Silly hand made mock
+ */
 export class TestWindow extends events.EventEmitter implements BrowserWindowLike {
     defaults = () => {
         this.o = {
@@ -60,6 +65,11 @@ export class TestWindow extends events.EventEmitter implements BrowserWindowLike
     webContents: WebContentsLike;
 }
 
+
+
+/**
+ * TestWindow WebContents hand made mock
+ */
 // tslint:disable-next-line:max-classes-per-file
 export class TestWebContents extends events.EventEmitter implements WebContentsLike {
     constructor(private o?: TestWindowOptions) {
