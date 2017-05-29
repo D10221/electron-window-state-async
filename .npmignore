@@ -1,0 +1,6 @@
+node_modules/
+test.js
+tsconfig.json
+src/
+built/
+**/__test__/*
