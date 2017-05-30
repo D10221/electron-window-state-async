@@ -5,3 +5,4 @@ src/
 built/
 **/__test__/*
 **/docs/*
+app
