@@ -10,7 +10,8 @@
     "build": "tsc -p .",
     "clean": "rimraf ./built",
     "rebuild": "npm run clean && npm run build",
-    "doc": "typedoc --theme minimal --out docs --mode file --exclude  **/__test__/*"
+    "doc": "typedoc --theme minimal --out docs --mode file --exclude  **/__test__/*",
+    "dist": "tsc -p ./tsconfig.prod.json"
   },
   "keywords": ["eLectron", "window", "state", "async", "store"],
   "author": "D10221",
