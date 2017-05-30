@@ -18,4 +18,8 @@ Intended Usage:
         await store.restore();
     });
 
-[Docs:](https://d10221.github.io/electron-window-state-async/)
+worked on: 
+
+    ./src/__app__
+
+##### [Docs:](https://d10221.github.io/electron-window-state-async/)
