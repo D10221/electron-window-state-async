@@ -11,7 +11,8 @@
     "clean": "rimraf ./built",
     "rebuild": "npm run clean && npm run build",
     "doc": "typedoc --theme minimal --out docs --mode file --exclude  **/__test__/*",
-    "dist": "tsc -p ./src/tsconfig.prod.json"
+    "dist": "tsc -p ./src/tsconfig.prod.json",
+    "redist": "rimraf ./dist && npm run dist"
   },
   "keywords": [
     "eLectron",
