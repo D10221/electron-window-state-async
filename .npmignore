@@ -4,3 +4,4 @@ tsconfig.json
 src/
 built/
 **/__test__/*
+**/docs/*
