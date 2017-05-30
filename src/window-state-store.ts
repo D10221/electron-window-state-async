@@ -1,9 +1,10 @@
 import { isWindowAlive } from "./is-window-alive";
-import { AsyncStore } from "electron-json-storage-async";
+import { asyncStorage } from "electron-json-storage-async";
 import { StateData, BrowserWindowLike, Subscription, EventKey } from "./types";
 import { isNullOrUndefined as isNull } from "util";
 import { subscriber } from "./subscriber";
-
+import { createDebug } from "./create-debug";
+const debug = createDebug("store");
 /**
  * Save/Restore window state
  * @param win {BrowserWindowLike}
@@ -17,17 +18,18 @@ export const WindowStateStore = (
 
     const storeKey = `window_${win.id}`;
 
-    const storage = AsyncStore<any>(storeKey);
-
     onError = onError || ((e) => {
-        console.error(e);
+        debug("%x", e.message);
     });
 
     /**
      * Copy window State and Save to Store
      */
     const get = (): Promise<StateData> => {
-        return storage.get(storeKey);
+        return asyncStorage.get(storeKey).catch(ex => {
+            debug("Error: %x", ex.message);
+            return {};
+        });
     };
 
     const save = async () => {
@@ -40,7 +42,7 @@ export const WindowStateStore = (
             state.bounds = win.getBounds();
         }
         state.devToolsOpened = win.webContents.isDevToolsOpened();
-        await storage.set(storeKey, state);
+        await asyncStorage.set(storeKey, state);
         win.emit("saved");
         return Promise.resolve();
     };
@@ -69,7 +71,7 @@ export const WindowStateStore = (
      * @summary clear current state
      */
     const clear = () => {
-        return storage.set(storeKey, {});
+        return asyncStorage.set(storeKey, {});
     };
 
     /**

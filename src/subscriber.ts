@@ -2,7 +2,8 @@ import { Subscription, EventKey, ObserverLike, Registration } from "./types";
 import { isWindowAlive } from "./is-window-alive";
 import { BrowserWindowLike } from "./index";
 import { EventEmitter } from "events";
-
+import { createDebug } from "./create-debug";
+const debug = createDebug("subscriber");
 /**
  * takes an Observer who's netx(key) will be invoked with the 'event'
  *  key used to register the 'event' callback on window & window.webContents.
@@ -12,7 +13,10 @@ import { EventEmitter } from "events";
 export const subscriber = (observer: ObserverLike) => {
 
     const register = (emitter: EventEmitter, key: EventKey) => {
-        const callback = () => observer.next(key);
+        const callback = () => {
+            debug("Event: %x" , key);
+            observer.next(key);
+        };
         emitter.on(key, callback);
         return {
             key,

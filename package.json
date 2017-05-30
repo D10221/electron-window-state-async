@@ -24,13 +24,16 @@
   "author": "D10221",
   "license": "MIT",
   "dependencies": {
+    "debug": "^2.6.8",
     "electron-json-storage-async": "git+https://github.com/D10221/electron-json-storage-async.git"
   },
   "devDependencies": {
+    "@types/debug": "0.0.29",
     "@types/electron": "^1.4.38",
     "@types/mocha": "^2.2.41",
     "@types/node": "^7.0.22",
     "@types/shelljs": "^0.7.1",
+    "electron": "^1.6.10",
     "electron-mocha": "^3.4.0",
     "shelljs": "^0.7.7"
   }
