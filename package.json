@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Electron window state async store",
   "private": true,
-  "main": "built/index.js",
-  "typings": "built/index.d.ts",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "test": "electron-mocha test.js",
     "build": "tsc -p ./src",
@@ -13,7 +13,13 @@
     "doc": "typedoc --theme minimal --out docs --mode file --exclude  **/__test__/*",
     "dist": "tsc -p ./src/tsconfig.prod.json"
   },
-  "keywords": ["eLectron", "window", "state", "async", "store"],
+  "keywords": [
+    "eLectron",
+    "window",
+    "state",
+    "async",
+    "store"
+  ],
   "author": "D10221",
   "license": "MIT",
   "dependencies": {
@@ -23,6 +29,8 @@
     "@types/electron": "^1.4.38",
     "@types/mocha": "^2.2.41",
     "@types/node": "^7.0.22",
-    "electron-mocha": "^3.4.0"    
+    "@types/shelljs": "^0.7.1",
+    "electron-mocha": "^3.4.0",
+    "shelljs": "^0.7.7"
   }
 }

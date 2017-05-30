@@ -71,13 +71,16 @@ describe("subscribing", () => {
             false,
             "didn't closeDevTools"
         );
-        // ...
 
+        // ... knows its unsubscribed
         subscription.unsubscribe();
         assert.ok(subscription.isUnsubscribed(), "didn't unsubscribe");
         w.removeAllListeners();
 
-        // ... did clear
+        // throws
+        assert.throws(subscription.unsubscribe, "Should throw");
+
+        // ... unsubscribed
         w.setFullScreen(true);
         const error = await waitEvent(w, "saved", 1000)
             .then(() => null)

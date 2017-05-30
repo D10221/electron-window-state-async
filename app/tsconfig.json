@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",        
+        "declaration": true,        
+        "outDir": "./built",
+        "noImplicitAny": true,
+        "strictNullChecks": false,
+        "noImplicitThis": true,
+        "alwaysStrict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "removeComments": true
+    },
+    "include": [
+        "./**/*.ts"
+    ]
+}
