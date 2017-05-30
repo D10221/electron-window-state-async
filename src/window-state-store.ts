@@ -5,6 +5,7 @@ import { subscriber } from "./subscriber";
 import { createDebug } from "./create-debug";
 import { hasBounds } from "./has-bounds";
 import { updateState } from "./update-state";
+import { validate } from "./validate";
 
 const debug = createDebug("store");
 /**
@@ -36,39 +37,40 @@ export const WindowStateStore = (
             debug("%x", "Window not alive");
             return Promise.resolve();
         }
-        const state: StateData = await get();
-        updateState(win, state);
+        // no neeed to save
+        if (!updateState(win, state)) return Promise.resolve();
+        if (!validate(state)) return Promise.resolve;
+
         await asyncStorage.set(storeKey, state);
         win.emit("saved");
         return Promise.resolve();
     };
+    let state: StateData;
 
     /**
      * restored from last saved
      */
-    const restore = () => {
-        return get().then(state => {
-            const { devToolsOpened, fullScreen, isMaximized } = (state ||
-                // or ...
-                {
-                    devToolsOpened: false,
-                    fullScreen: false,
-                    isMaximized: false
-                }
-            );
-            if (hasBounds(state)) {
-                win.setBounds(state.bounds);
-            }
-            if (isMaximized) {
-                win.maximize();
-            }
-            if (fullScreen) {
-                win.setFullScreen(fullScreen);
-            }
-            if (devToolsOpened) {
-                win.webContents.openDevTools();
-            }
-        });
+    const restore = async () => {
+
+        state = (await get()) || {
+            devToolsOpened: false,
+            fullScreen: false,
+            isMaximized: false
+        };
+        const { devToolsOpened, fullScreen, isMaximized } = state;
+
+        if (hasBounds(state)) {
+            win.setBounds(state.bounds);
+        }
+        if (isMaximized) {
+            win.maximize();
+        }
+        if (fullScreen) {
+            win.setFullScreen(fullScreen);
+        }
+        if (devToolsOpened) {
+            win.webContents.openDevTools();
+        }
     };
 
     /**

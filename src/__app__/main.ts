@@ -5,8 +5,8 @@ import { WindowStateStore, Subscription } from "../";
 const utils = require("electron-json-storage/lib/utils");
 console.log("user-data: " + utils.getUserDataPath());
 
-let win: Electron.BrowserWindow;
 const createWindow = () => {
+    let win: Electron.BrowserWindow;
     win = new BrowserWindow({ show: false });
     console.log("window name: ", (win as any).name);
 
