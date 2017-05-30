@@ -14,7 +14,7 @@ export const subscriber = (observer: ObserverLike) => {
 
     const register = (emitter: EventEmitter, key: EventKey) => {
         const callback = () => {
-            debug("Event: %x" , key);
+            debug("Event: %x", key);
             observer.next(key);
         };
         emitter.on(key, callback);
@@ -34,18 +34,17 @@ export const subscriber = (observer: ObserverLike) => {
 
             let unSubscribed = false;
 
-            winSubscriptions.push(
-                register(win, "resize")
-            );
-            winSubscriptions.push(
-                register(win, "move")
-            );
-            webContentSubscriptions.push(
-                register(win.webContents, "devtools-opened")
-            );
-            webContentSubscriptions.push(
+            winSubscriptions.concat([
+                register(win, "resize"),
+                register(win, "move"),
+                register(win, "close"),
+                register(win, "closed")
+            ]);
+
+            webContentSubscriptions.concat([
+                register(win.webContents, "devtools-opened"),
                 register(win.webContents, "devtools-closed")
-            );
+            ]);
 
             return {
                 /**

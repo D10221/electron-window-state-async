@@ -1,9 +1,11 @@
 import { isWindowAlive } from "./is-window-alive";
 import { asyncStorage } from "electron-json-storage-async";
 import { StateData, BrowserWindowLike, Subscription, EventKey } from "./types";
-import { isNullOrUndefined as isNull } from "util";
 import { subscriber } from "./subscriber";
 import { createDebug } from "./create-debug";
+import { hasBounds } from "./has-bounds";
+import { updateState } from "./update-state";
+
 const debug = createDebug("store");
 /**
  * Save/Restore window state
@@ -22,9 +24,6 @@ export const WindowStateStore = (
         debug("%x", e.message);
     });
 
-    /**
-     * Copy window State and Save to Store
-     */
     const get = (): Promise<StateData> => {
         return asyncStorage.get(storeKey).catch(ex => {
             debug("Error: %x", ex.message);
@@ -34,14 +33,11 @@ export const WindowStateStore = (
 
     const save = async () => {
         if (!isWindowAlive(win)) {
-            return Promise.reject("Window not alive");
+            debug("%x", "Window not alive");
+            return Promise.resolve();
         }
         const state: StateData = await get();
-        state.fullScreen = win.isFullScreen();
-        if (!state.fullScreen) {
-            state.bounds = win.getBounds();
-        }
-        state.devToolsOpened = win.webContents.isDevToolsOpened();
+        updateState(win, state);
         await asyncStorage.set(storeKey, state);
         win.emit("saved");
         return Promise.resolve();
@@ -52,11 +48,19 @@ export const WindowStateStore = (
      */
     const restore = () => {
         return get().then(state => {
-            const { bounds, devToolsOpened, fullScreen } = (
-                state || { bounds: null, devToolsOpened: false, fullScreen: false }
+            const { devToolsOpened, fullScreen, isMaximized } = (state ||
+                // or ...
+                {
+                    devToolsOpened: false,
+                    fullScreen: false,
+                    isMaximized: false
+                }
             );
-            if (!isNull(bounds) && !fullScreen) {
+            if (hasBounds(state)) {
                 win.setBounds(state.bounds);
+            }
+            if (isMaximized) {
+                win.maximize();
             }
             if (fullScreen) {
                 win.setFullScreen(fullScreen);

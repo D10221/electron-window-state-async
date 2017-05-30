@@ -25,6 +25,7 @@ export interface WebContentsLike extends EventEmitter {
  */
 export interface BrowserWindowLike extends EventEmitter {
     id?: any;
+    isMaximized?: () => boolean;
     isFullScreen?: () => boolean;
     setFullScreen?: (x: boolean) => void;
     getBounds?: () => RectangleLike;
@@ -32,6 +33,8 @@ export interface BrowserWindowLike extends EventEmitter {
     webContents?: WebContentsLike;
     isDestroyed?: () => boolean;
     destroy?: () => void;
+    isMinimized?: () => boolean;
+    maximize?: () => void;
 }
 
 /**
@@ -41,6 +44,8 @@ export interface StateData {
     fullScreen?: boolean;
     devToolsOpened?: boolean;
     bounds?: RectangleLike;
+    isMaximized?: boolean;
+    displayBounds?: RectangleLike;
 }
 
 /**
@@ -52,7 +57,7 @@ export interface Subscription {
     unsubscribe(): void;
 }
 
-export type EventKey = "resize" | "move" | "devtools-opened" | "devtools-closed";
+export type EventKey = "resize" | "move" | "devtools-opened" | "devtools-closed" | "close" | "closed";
 
 /**
  * minimal event key observer

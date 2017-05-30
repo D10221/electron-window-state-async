@@ -4,23 +4,30 @@ import { WindowStateStore, Subscription } from "../";
 
 const utils = require("electron-json-storage/lib/utils");
 console.log("user-data: " + utils.getUserDataPath());
+
 let win: Electron.BrowserWindow;
-const createWindow = async () => {
+const createWindow = () => {
     win = new BrowserWindow({ show: false });
     console.log("window name: ", (win as any).name);
-    const store = WindowStateStore(win);
-    await store.restore();
 
+    let subscription: Subscription;
+    const store = WindowStateStore(win);
     win.loadURL(render({
         title: "Electron window state store",
         scripts: ["window.js"]
     }));
 
-    let subscription: Subscription;
-    win.once("ready-to-show", () => {
+    win.once("ready-to-show", async () => {
         console.log("ready-to-show");
-        win.show();
-        subscription = store.subscribe();
+        if (!win.isVisible()) {
+            console.log("Showing");
+            win.show();
+        }
+        if (!subscription) {
+            await store.restore();
+            console.log("subscribing: on ready-to-show");
+            subscription = store.subscribe();
+        }
     });
 
     win.on("close", (_e: Electron.Event) => {
