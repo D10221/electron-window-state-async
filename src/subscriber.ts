@@ -1,4 +1,4 @@
-import { Subscription, EventKey, ObserverLike, Registration } from "./types";
+import { Subscription, EventKey, ObserverLike, Registration, SubscriberOptions } from "./types";
 import { isWindowAlive } from "./is-window-alive";
 import { BrowserWindowLike } from "./index";
 import { EventEmitter } from "events";
@@ -10,10 +10,21 @@ const debug = createDebug("subscriber");
  * Note: Not an Observable, creates a subscribing function that returns an unsubscriber
  * Note: rxjs could be used to replace this functionality
  */
-export const subscriber = (observer: ObserverLike) => {
+export const subscriber = (observer: ObserverLike, options?: SubscriberOptions) => {
 
+    /**
+     * debounce/throttle, there is too many of these calls
+     */
+    const throttle = (options || {}).throttle || 1000;
+    /**
+     * sort of relay:
+     */
     const register = (emitter: EventEmitter, key: EventKey) => {
+        const skip: any = {};
         const callback = () => {
+            if (skip[key]) return ; // debug("Event: %s: skipped", key);
+            skip[key] = true;
+            setTimeout(() => { skip[key] = false; }, throttle);
             debug("Event: %x", key);
             observer.next(key);
         };

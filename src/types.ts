@@ -73,3 +73,14 @@ export interface Registration {
     callback: () => void;
     key: string;
 }
+
+/**
+ * Subscriber options
+ */
+export interface SubscriberOptions {
+    /**
+     * number in milliseconds to throttle, events of the same key
+     * @default 1000 milliseconds
+     */
+    throttle?: number;
+}

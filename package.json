@@ -7,11 +7,11 @@
   "typings": "dist/index.d.ts",
   "scripts": {
     "test": "electron-mocha test.js",
-    "build": "tsc -p ./src",
+    "build": "tsc -p .",
     "clean": "rimraf ./built",
     "rebuild": "npm run clean && npm run build",
     "doc": "rimraf docs && typedoc --theme minimal --out docs --mode file --exclude \"**/__test__//*\"  --excludeNotExported",
-    "dist": "tsc -p ./src/tsconfig.prod.json",
+    "dist": "tsc -p tsconfig.prod.json",
     "redist": "rimraf ./dist && npm run dist"
   },
   "keywords": [

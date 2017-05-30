@@ -41,6 +41,9 @@ const createWindow = () => {
         win = null;
     });
 
+    /**
+     * WARNING: this one we emit from the store.
+     */
     win.on("saved", () => {
         console.log("saved");
     });
