@@ -89,7 +89,12 @@ export const WindowStateStore = (
         }
     };
 
+    // :(
+    let subscription: Subscription;
+    let started = false;
+    // ...
     return {
+        getWindow: () => win as Electron.BrowserWindow, // TODO: remove ?BrowserWindowLike Dependency ?
         restore,
         save,
         clear,
@@ -100,7 +105,30 @@ export const WindowStateStore = (
          */
         subscribe: () => {
             // TODO: await restore() ?; //StartWith?
-            return subscriber(observer).subscribe(win) as Subscription;
+            return subscriber(observer).subscribe(win);
         },
+        start: () => new Promise((resolve, reject) => {
+            if (started) {
+                reject(new Error("Already Started"));
+                return;
+            }
+            started = true;
+            try {
+                debug("%s", "starting... ");
+                win.once("ready-to-show", async () => {
+                    await restore();
+                    debug("%s", "subscribing: on ready-to-show");
+                    subscription = subscriber(observer).subscribe(win);
+                    resolve();
+                });
+                win.once("close", (_e: Electron.Event) => {
+                    debug("%s", "closing");
+                    // _e.preventDefault(); //will prevent close
+                    subscription.unsubscribe();
+                });
+            } catch (e) {
+                reject(e);
+            }
+        })
     };
 };

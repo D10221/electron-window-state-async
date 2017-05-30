@@ -35,6 +35,8 @@ export interface BrowserWindowLike extends EventEmitter {
     destroy?: () => void;
     isMinimized?: () => boolean;
     maximize?: () => void;
+    show?: () => void;
+    isVisible?: () => boolean;
 }
 
 /**
