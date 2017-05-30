@@ -2,7 +2,7 @@
 import { EventEmitter } from "events";
 
 /**
- * * Optional Electron.Rectangle implementation
+ * * Optional Electron.Rectangle interface
  */
 export interface RectangleLike {
     x?: number;
@@ -12,7 +12,7 @@ export interface RectangleLike {
 }
 
 /**
- * Partial Electron.BrowserWindow.webContents implementation
+ * Partial Electron.BrowserWindow.webContents interface
  */
 export interface WebContentsLike extends EventEmitter {
     isDevToolsOpened?: () => boolean;
@@ -21,7 +21,7 @@ export interface WebContentsLike extends EventEmitter {
 }
 
 /**
- * Partial Electron.BrowserWindow implementation
+ * Partial Electron.BrowserWindow interface
  */
 export interface BrowserWindowLike extends EventEmitter {
     id?: any;

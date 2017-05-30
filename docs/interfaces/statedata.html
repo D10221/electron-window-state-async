@@ -931,7 +931,13 @@ img { max-width: 100%; }
 					<a href="statedata.html#devtoolsopened" class="tsd-kind-icon">dev<wbr>Tools<wbr>Opened</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="statedata.html#displaybounds" class="tsd-kind-icon">display<wbr>Bounds</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
 					<a href="statedata.html#fullscreen" class="tsd-kind-icon">full<wbr>Screen</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="statedata.html#ismaximized" class="tsd-kind-icon">is<wbr>Maximized</a>
 				</li>
 			</ul>
 		</li>
@@ -951,10 +957,34 @@ img { max-width: 100%; }
 			<a href="../globals.html#windowstatestore" class="tsd-kind-icon">Window<wbr>State<wbr>Store</a>
 		</li>
 		<li class=" tsd-kind-function">
+			<a href="../globals.html#createdebug" class="tsd-kind-icon">create<wbr>Debug</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="../globals.html#deepequal" class="tsd-kind-icon">deep<wbr>Equal</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="../globals.html#hasbounds" class="tsd-kind-icon">has<wbr>Bounds</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="../globals.html#isvalidstate" class="tsd-kind-icon">is<wbr>Valid<wbr>State</a>
+		</li>
+		<li class=" tsd-kind-function">
 			<a href="../globals.html#iswindowalive" class="tsd-kind-icon">is<wbr>Window<wbr>Alive</a>
 		</li>
 		<li class=" tsd-kind-function">
+			<a href="../globals.html#render" class="tsd-kind-icon">render</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="../globals.html#screen" class="tsd-kind-icon">screen</a>
+		</li>
+		<li class=" tsd-kind-function">
 			<a href="../globals.html#subscriber" class="tsd-kind-icon">subscriber</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="../globals.html#updatestate" class="tsd-kind-icon">update<wbr>State</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="../globals.html#validate" class="tsd-kind-icon">validate</a>
 		</li>
 	</ul>
 </nav>
@@ -984,7 +1014,9 @@ img { max-width: 100%; }
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="statedata.html#bounds" class="tsd-kind-icon">bounds</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="statedata.html#devtoolsopened" class="tsd-kind-icon">dev<wbr>Tools<wbr>Opened</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="statedata.html#displaybounds" class="tsd-kind-icon">display<wbr>Bounds</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="statedata.html#fullscreen" class="tsd-kind-icon">full<wbr>Screen</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="statedata.html#ismaximized" class="tsd-kind-icon">is<wbr>Maximized</a></li>
 						</ul>
 					</section>
 				</div>
@@ -998,7 +1030,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">bounds<span class="tsd-signature-symbol">:</span> <a href="rectanglelike.html" class="tsd-signature-type">RectangleLike</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/e39c3b4/src/types.ts#L43">types.ts:43</a></li>
+						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/1b49cc4/src/types.ts#L46">types.ts:46</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1008,7 +1040,17 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">dev<wbr>Tools<wbr>Opened<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/e39c3b4/src/types.ts#L42">types.ts:42</a></li>
+						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/1b49cc4/src/types.ts#L45">types.ts:45</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="displaybounds" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> display<wbr>Bounds</h3>
+				<div class="tsd-signature tsd-kind-icon">display<wbr>Bounds<span class="tsd-signature-symbol">:</span> <a href="rectanglelike.html" class="tsd-signature-type">RectangleLike</a></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/1b49cc4/src/types.ts#L48">types.ts:48</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1018,7 +1060,17 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">full<wbr>Screen<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/e39c3b4/src/types.ts#L41">types.ts:41</a></li>
+						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/1b49cc4/src/types.ts#L44">types.ts:44</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="ismaximized" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> is<wbr>Maximized</h3>
+				<div class="tsd-signature tsd-kind-icon">is<wbr>Maximized<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/1b49cc4/src/types.ts#L47">types.ts:47</a></li>
 					</ul>
 				</aside>
 			</section>

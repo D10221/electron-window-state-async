@@ -10,7 +10,7 @@
     "build": "tsc -p ./src",
     "clean": "rimraf ./built",
     "rebuild": "npm run clean && npm run build",
-    "doc": "typedoc --theme minimal --out docs --mode file --exclude  **/__test__/* **/__app__/*",
+    "doc": "rimraf docs && typedoc --theme minimal --out docs --mode file --exclude \"**/__test__//*\"  --excludeNotExported",
     "dist": "tsc -p ./src/tsconfig.prod.json",
     "redist": "rimraf ./dist && npm run dist"
   },

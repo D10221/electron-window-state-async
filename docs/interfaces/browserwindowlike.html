@@ -928,6 +928,15 @@ img { max-width: 100%; }
 					<a href="browserwindowlike.html#isfullscreen" class="tsd-kind-icon">is<wbr>Full<wbr>Screen</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="browserwindowlike.html#ismaximized" class="tsd-kind-icon">is<wbr>Maximized</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="browserwindowlike.html#isminimized" class="tsd-kind-icon">is<wbr>Minimized</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="browserwindowlike.html#maximize" class="tsd-kind-icon">maximize</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
 					<a href="browserwindowlike.html#setbounds" class="tsd-kind-icon">set<wbr>Bounds</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-interface">
@@ -1011,10 +1020,34 @@ img { max-width: 100%; }
 			<a href="../globals.html#windowstatestore" class="tsd-kind-icon">Window<wbr>State<wbr>Store</a>
 		</li>
 		<li class=" tsd-kind-function">
+			<a href="../globals.html#createdebug" class="tsd-kind-icon">create<wbr>Debug</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="../globals.html#deepequal" class="tsd-kind-icon">deep<wbr>Equal</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="../globals.html#hasbounds" class="tsd-kind-icon">has<wbr>Bounds</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="../globals.html#isvalidstate" class="tsd-kind-icon">is<wbr>Valid<wbr>State</a>
+		</li>
+		<li class=" tsd-kind-function">
 			<a href="../globals.html#iswindowalive" class="tsd-kind-icon">is<wbr>Window<wbr>Alive</a>
 		</li>
 		<li class=" tsd-kind-function">
+			<a href="../globals.html#render" class="tsd-kind-icon">render</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="../globals.html#screen" class="tsd-kind-icon">screen</a>
+		</li>
+		<li class=" tsd-kind-function">
 			<a href="../globals.html#subscriber" class="tsd-kind-icon">subscriber</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="../globals.html#updatestate" class="tsd-kind-icon">update<wbr>State</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="../globals.html#validate" class="tsd-kind-icon">validate</a>
 		</li>
 	</ul>
 </nav>
@@ -1023,7 +1056,7 @@ img { max-width: 100%; }
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<p>Partial Electron.BrowserWindow implementation</p>
+					<p>Partial Electron.BrowserWindow interface</p>
 				</div>
 			</div>
 		</section>
@@ -1052,6 +1085,9 @@ img { max-width: 100%; }
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="browserwindowlike.html#id" class="tsd-kind-icon">id</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="browserwindowlike.html#isdestroyed" class="tsd-kind-icon">is<wbr>Destroyed</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="browserwindowlike.html#isfullscreen" class="tsd-kind-icon">is<wbr>Full<wbr>Screen</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="browserwindowlike.html#ismaximized" class="tsd-kind-icon">is<wbr>Maximized</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="browserwindowlike.html#isminimized" class="tsd-kind-icon">is<wbr>Minimized</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="browserwindowlike.html#maximize" class="tsd-kind-icon">maximize</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="browserwindowlike.html#setbounds" class="tsd-kind-icon">set<wbr>Bounds</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="browserwindowlike.html#setfullscreen" class="tsd-kind-icon">set<wbr>Full<wbr>Screen</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="browserwindowlike.html#webcontents" class="tsd-kind-icon">web<wbr>Contents</a></li>
@@ -1088,7 +1124,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">destroy<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/e39c3b4/src/types.ts#L34">types.ts:34</a></li>
+						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/1b49cc4/src/types.ts#L35">types.ts:35</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -1113,7 +1149,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">get<wbr>Bounds<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/e39c3b4/src/types.ts#L30">types.ts:30</a></li>
+						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/1b49cc4/src/types.ts#L31">types.ts:31</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -1138,7 +1174,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/e39c3b4/src/types.ts#L27">types.ts:27</a></li>
+						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/1b49cc4/src/types.ts#L27">types.ts:27</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1148,7 +1184,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">is<wbr>Destroyed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/e39c3b4/src/types.ts#L33">types.ts:33</a></li>
+						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/1b49cc4/src/types.ts#L34">types.ts:34</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -1173,7 +1209,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">is<wbr>Full<wbr>Screen<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/e39c3b4/src/types.ts#L28">types.ts:28</a></li>
+						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/1b49cc4/src/types.ts#L29">types.ts:29</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -1193,12 +1229,87 @@ img { max-width: 100%; }
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="ismaximized" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> is<wbr>Maximized</h3>
+				<div class="tsd-signature tsd-kind-icon">is<wbr>Maximized<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/1b49cc4/src/types.ts#L28">types.ts:28</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-type-declaration">
+					<h4>Type declaration</h4>
+					<ul class="tsd-parameters">
+						<li class="tsd-parameter-siganture">
+							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
+								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+							</ul>
+							<ul class="tsd-descriptions">
+								<li class="tsd-description">
+									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="isminimized" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> is<wbr>Minimized</h3>
+				<div class="tsd-signature tsd-kind-icon">is<wbr>Minimized<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/1b49cc4/src/types.ts#L36">types.ts:36</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-type-declaration">
+					<h4>Type declaration</h4>
+					<ul class="tsd-parameters">
+						<li class="tsd-parameter-siganture">
+							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
+								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+							</ul>
+							<ul class="tsd-descriptions">
+								<li class="tsd-description">
+									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="maximize" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> maximize</h3>
+				<div class="tsd-signature tsd-kind-icon">maximize<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/1b49cc4/src/types.ts#L37">types.ts:37</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-type-declaration">
+					<h4>Type declaration</h4>
+					<ul class="tsd-parameters">
+						<li class="tsd-parameter-siganture">
+							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
+								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+							</ul>
+							<ul class="tsd-descriptions">
+								<li class="tsd-description">
+									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 				<a name="setbounds" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagOptional">Optional</span> set<wbr>Bounds</h3>
 				<div class="tsd-signature tsd-kind-icon">set<wbr>Bounds<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/e39c3b4/src/types.ts#L31">types.ts:31</a></li>
+						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/1b49cc4/src/types.ts#L32">types.ts:32</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -1229,7 +1340,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">set<wbr>Full<wbr>Screen<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/e39c3b4/src/types.ts#L29">types.ts:29</a></li>
+						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/1b49cc4/src/types.ts#L30">types.ts:30</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -1260,7 +1371,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">web<wbr>Contents<span class="tsd-signature-symbol">:</span> <a href="webcontentslike.html" class="tsd-signature-type">WebContentsLike</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/e39c3b4/src/types.ts#L32">types.ts:32</a></li>
+						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/1b49cc4/src/types.ts#L33">types.ts:33</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1271,7 +1382,7 @@ img { max-width: 100%; }
 				<aside class="tsd-sources">
 					<p>Inherited from EventEmitter.defaultMaxListeners</p>
 					<ul>
-						<li>Defined in D:/Dev/2017/electron-window-state/node_modules/@types/node/index.d.ts:605</li>
+						<li>Defined in C:/dev/experiments/electron-window-state-async/node_modules/@types/node/index.d.ts:605</li>
 					</ul>
 				</aside>
 			</section>
@@ -1290,7 +1401,7 @@ img { max-width: 100%; }
 							<p>Inherited from EventEmitter.addListener</p>
 							<p>Overrides EventEmitter.addListener</p>
 							<ul>
-								<li>Defined in D:/Dev/2017/electron-window-state/node_modules/@types/node/index.d.ts:607</li>
+								<li>Defined in C:/dev/experiments/electron-window-state-async/node_modules/@types/node/index.d.ts:607</li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1318,7 +1429,7 @@ img { max-width: 100%; }
 							<p>Inherited from EventEmitter.emit</p>
 							<p>Overrides EventEmitter.emit</p>
 							<ul>
-								<li>Defined in D:/Dev/2017/electron-window-state/node_modules/@types/node/index.d.ts:617</li>
+								<li>Defined in C:/dev/experiments/electron-window-state-async/node_modules/@types/node/index.d.ts:617</li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1346,7 +1457,7 @@ img { max-width: 100%; }
 							<p>Inherited from EventEmitter.eventNames</p>
 							<p>Overrides EventEmitter.eventNames</p>
 							<ul>
-								<li>Defined in D:/Dev/2017/electron-window-state/node_modules/@types/node/index.d.ts:618</li>
+								<li>Defined in C:/dev/experiments/electron-window-state-async/node_modules/@types/node/index.d.ts:618</li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span></h4>
@@ -1365,7 +1476,7 @@ img { max-width: 100%; }
 							<p>Inherited from EventEmitter.getMaxListeners</p>
 							<p>Overrides EventEmitter.getMaxListeners</p>
 							<ul>
-								<li>Defined in D:/Dev/2017/electron-window-state/node_modules/@types/node/index.d.ts:615</li>
+								<li>Defined in C:/dev/experiments/electron-window-state-async/node_modules/@types/node/index.d.ts:615</li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -1384,7 +1495,7 @@ img { max-width: 100%; }
 							<p>Inherited from EventEmitter.listenerCount</p>
 							<p>Overrides EventEmitter.listenerCount</p>
 							<ul>
-								<li>Defined in D:/Dev/2017/electron-window-state/node_modules/@types/node/index.d.ts:619</li>
+								<li>Defined in C:/dev/experiments/electron-window-state-async/node_modules/@types/node/index.d.ts:619</li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1409,7 +1520,7 @@ img { max-width: 100%; }
 							<p>Inherited from EventEmitter.listeners</p>
 							<p>Overrides EventEmitter.listeners</p>
 							<ul>
-								<li>Defined in D:/Dev/2017/electron-window-state/node_modules/@types/node/index.d.ts:616</li>
+								<li>Defined in C:/dev/experiments/electron-window-state-async/node_modules/@types/node/index.d.ts:616</li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1434,7 +1545,7 @@ img { max-width: 100%; }
 							<p>Inherited from EventEmitter.on</p>
 							<p>Overrides EventEmitter.on</p>
 							<ul>
-								<li>Defined in D:/Dev/2017/electron-window-state/node_modules/@types/node/index.d.ts:608</li>
+								<li>Defined in C:/dev/experiments/electron-window-state-async/node_modules/@types/node/index.d.ts:608</li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1462,7 +1573,7 @@ img { max-width: 100%; }
 							<p>Inherited from EventEmitter.once</p>
 							<p>Overrides EventEmitter.once</p>
 							<ul>
-								<li>Defined in D:/Dev/2017/electron-window-state/node_modules/@types/node/index.d.ts:609</li>
+								<li>Defined in C:/dev/experiments/electron-window-state-async/node_modules/@types/node/index.d.ts:609</li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1490,7 +1601,7 @@ img { max-width: 100%; }
 							<p>Inherited from EventEmitter.prependListener</p>
 							<p>Overrides EventEmitter.prependListener</p>
 							<ul>
-								<li>Defined in D:/Dev/2017/electron-window-state/node_modules/@types/node/index.d.ts:610</li>
+								<li>Defined in C:/dev/experiments/electron-window-state-async/node_modules/@types/node/index.d.ts:610</li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1518,7 +1629,7 @@ img { max-width: 100%; }
 							<p>Inherited from EventEmitter.prependOnceListener</p>
 							<p>Overrides EventEmitter.prependOnceListener</p>
 							<ul>
-								<li>Defined in D:/Dev/2017/electron-window-state/node_modules/@types/node/index.d.ts:611</li>
+								<li>Defined in C:/dev/experiments/electron-window-state-async/node_modules/@types/node/index.d.ts:611</li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1546,7 +1657,7 @@ img { max-width: 100%; }
 							<p>Inherited from EventEmitter.removeAllListeners</p>
 							<p>Overrides EventEmitter.removeAllListeners</p>
 							<ul>
-								<li>Defined in D:/Dev/2017/electron-window-state/node_modules/@types/node/index.d.ts:613</li>
+								<li>Defined in C:/dev/experiments/electron-window-state-async/node_modules/@types/node/index.d.ts:613</li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1571,7 +1682,7 @@ img { max-width: 100%; }
 							<p>Inherited from EventEmitter.removeListener</p>
 							<p>Overrides EventEmitter.removeListener</p>
 							<ul>
-								<li>Defined in D:/Dev/2017/electron-window-state/node_modules/@types/node/index.d.ts:612</li>
+								<li>Defined in C:/dev/experiments/electron-window-state-async/node_modules/@types/node/index.d.ts:612</li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1599,7 +1710,7 @@ img { max-width: 100%; }
 							<p>Inherited from EventEmitter.setMaxListeners</p>
 							<p>Overrides EventEmitter.setMaxListeners</p>
 							<ul>
-								<li>Defined in D:/Dev/2017/electron-window-state/node_modules/@types/node/index.d.ts:614</li>
+								<li>Defined in C:/dev/experiments/electron-window-state-async/node_modules/@types/node/index.d.ts:614</li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1623,7 +1734,7 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<p>Inherited from EventEmitter.listenerCount</p>
 							<ul>
-								<li>Defined in D:/Dev/2017/electron-window-state/node_modules/@types/node/index.d.ts:604</li>
+								<li>Defined in C:/dev/experiments/electron-window-state-async/node_modules/@types/node/index.d.ts:604</li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
