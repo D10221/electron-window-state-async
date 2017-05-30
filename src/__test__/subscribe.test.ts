@@ -1,7 +1,8 @@
 import * as assert from "assert";
-import { waitEvent } from "../wait-event";
+import { waitEvent } from "./wait-event";
 import { WindowStateStore } from "../window-state-store";
 import { TestWindow } from "./TestWindow";
+import { isError } from "util";
 
 
 describe("subscribing", () => {
@@ -59,7 +60,7 @@ describe("subscribing", () => {
 
         w.webContents.closeDevTools();
         await waitEvent(w, "saved", 1000)
-         .catch(ex => {
+            .catch(ex => {
                 console.error("Can't save closeDevTools");
                 throw ex;
             });
@@ -76,6 +77,17 @@ describe("subscribing", () => {
         assert.ok(subscription.isUnsubscribed(), "didn't unsubscribe");
         w.removeAllListeners();
 
-        // TODO: test doesn't listen to win.events after un-subscription;
+        // ... did clear
+        w.setFullScreen(true);
+        const error = await waitEvent(w, "saved", 1000)
+            .then(() => null)
+            .catch(ex => ex);
+        assert.ok(isError(error), "Should timeout");
+        assert.equal(
+            (await store.value()).fullScreen,
+            // expected:
+            false,
+            "shouldn't be fullscreen"
+        );
     });
 });

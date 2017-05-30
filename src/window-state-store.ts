@@ -4,6 +4,11 @@ import { StateData, BrowserWindowLike, Subscription, EventKey } from "./types";
 import { isNullOrUndefined as isNull } from "util";
 import { subscriber } from "./subscriber";
 
+/**
+ * Save/Restore window state
+ * @param win {BrowserWindowLike}
+ * @param onError {(e: Error) => callback} optional error callback
+ */
 export const WindowStateStore = (
 
     win: BrowserWindowLike,
@@ -61,14 +66,14 @@ export const WindowStateStore = (
     };
 
     /**
-     * @summary clear values, TODO: to defaults?
+     * @summary clear current state
      */
     const clear = () => {
         return storage.set(storeKey, {});
     };
 
     /**
-     * rx can replace this
+     * Note: rx can replace this
      */
     const observer = {
         next: async (_key: EventKey) => {
@@ -82,7 +87,8 @@ export const WindowStateStore = (
         clear,
         value: get,
         /**
-         * rx can replace this
+         * subscribe to window events and save it's curent state
+         * Note: rxjs can replace this
          */
         subscribe: () => {
             // TODO: await restore() ?; //StartWith?

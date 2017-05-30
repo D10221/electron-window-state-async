@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { waitEvent } from "../wait-event";
+import { waitEvent } from "./wait-event";
 import { EventEmitter } from "events";
 import { delay } from "./delay";
 import { isError } from "util";

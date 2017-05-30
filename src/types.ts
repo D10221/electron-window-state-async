@@ -1,6 +1,9 @@
 
 import { EventEmitter } from "events";
 
+/**
+ * * Optional Electron.Rectangle implementation
+ */
 export interface RectangleLike {
     x?: number;
     y?: number;
@@ -8,11 +11,18 @@ export interface RectangleLike {
     height?: number;
 }
 
+/**
+ * Partial Electron.BrowserWindow.webContents implementation
+ */
 export interface WebContentsLike extends EventEmitter {
-    isDevToolsOpened: () => boolean;
+    isDevToolsOpened?: () => boolean;
     openDevTools?: () => void;
     closeDevTools?: () => void;
 }
+
+/**
+ * Partial Electron.BrowserWindow implementation
+ */
 export interface BrowserWindowLike extends EventEmitter {
     id?: any;
     isFullScreen?: () => boolean;
@@ -23,14 +33,19 @@ export interface BrowserWindowLike extends EventEmitter {
     isDestroyed?: () => boolean;
     destroy?: () => void;
 }
+
+/**
+ * Persisted data shape
+ */
 export interface StateData {
-    fullScreen: boolean;
-    devToolsOpened: boolean;
-    bounds: RectangleLike;
+    fullScreen?: boolean;
+    devToolsOpened?: boolean;
+    bounds?: RectangleLike;
 }
 
 /**
- * rx can replace this
+ * used to remove listeners
+ * Note: rxjs could replace this
  */
 export interface Subscription {
     isUnsubscribed(): boolean;
@@ -38,3 +53,18 @@ export interface Subscription {
 }
 
 export type EventKey = "resize" | "move" | "devtools-opened" | "devtools-closed";
+
+/**
+ * minimal event key observer
+ */
+export interface ObserverLike {
+    next: (key: EventKey) => void;
+}
+
+/**
+ * unsubscriber shape
+ */
+export interface Registration {
+    callback: () => void;
+    key: string;
+}
