@@ -14,8 +14,24 @@ Intended Usage:
     })
 
 
-worked on: 
+see: 
 
     ./src/__app__
 
-##### [Docs:](https://d10221.github.io/electron-window-state-async/)
+launching tests:
+
+    $export WINDOW_STATE_HOME=$HOME/tmp && electron-mocha ./built/__test__/**/*.test.js
+
+Or ..
+
+    $export WINDOW_STATE_HOME=$HOME/tmp && clear  && ./scripts/test.js
+
+...that rebuilds 1st  
+
+
+#### set debug on: 
+
+    $export DEBUG="window-state:*"
+
+
+#### [Docs:](https://d10221.github.io/electron-window-state-async/)
