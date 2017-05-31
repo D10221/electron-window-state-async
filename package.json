@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "test": "electron-mocha ./built/__test__/*.test.js",
+    "test": "export NODE_ENV=test && export DEBUG=\"window-state:*\" && npm run build && node_modules/.bin/electron-mocha ./built/__test__/**/*.test.js",
     "build": "tsc -p .",
     "clean": "rimraf ./built",
     "rebuild": "npm run clean && npm run build",
