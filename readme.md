@@ -5,18 +5,14 @@ Based on **[electron-window-state](https://github.com/mawie81/electron-window-st
 
 Intended Usage:
 
-    const win = new BrowserWindow();
-    const store = WindowStateStore(w);    
-    const subscription = store.subscribe();
-    // ...
-    win.on("close", ()=>{
-        // ....
-        subscription.unsubscribe();
-    });
-    app.on("ready", async ()=>{
-        // ...
-        await store.restore();
-    });
+    app.on("ready", async ()=> {
+        const win = new BrowserWindow({ show: false }); 
+        const store = new WindowStateStore(win);
+        win.loadURL("file://index.html");
+        await start(store);
+        win.show();
+    })
+
 
 worked on: 
 
