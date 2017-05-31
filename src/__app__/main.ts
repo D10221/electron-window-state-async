@@ -2,10 +2,6 @@ import { app, BrowserWindow } from "electron";
 import { render } from "./shell";
 import { WindowStateStore, start } from "../store";
 
-import { userDataPath } from "../locations";
-
-console.log("user-data: " + userDataPath());
-
 app.on("ready", async () => {
     const win = new BrowserWindow({ show: false });
     const store = new WindowStateStore(win);
