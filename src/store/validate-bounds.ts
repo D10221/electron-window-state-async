@@ -1,19 +1,21 @@
-import { StateData } from "./types";
+import { StateData } from "../types";
+import { screen } from "../screen";
+import { deepEqual } from "../deep-equal";
+
 import { hasBounds } from "./has-bounds";
-import { screen } from "./screen";
-import { deepEqual } from "assert";
 import { isValidState } from "./is-valid-state";
+
 type Rectangle = Electron.Rectangle;
 
 export const validateBounds = (state: StateData) => {
-    if (!isValidState(state)) return ;
-    if (!(hasBounds(state) && state.displayBounds)) return ;
+    if (!isValidState(state)) return;
+    if (!(hasBounds(state) && state.displayBounds)) return;
 
     // Check if the display where the window was last open is still available
     const displayBounds = screen().getDisplayMatching(state.bounds as Rectangle).bounds;
     const sameBounds = deepEqual(state.displayBounds, displayBounds);
 
-    if (sameBounds) return ;
+    if (sameBounds) return;
 
     if (displayBounds.width < state.displayBounds.width) {
         if (state.bounds.x > displayBounds.width) {

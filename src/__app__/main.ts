@@ -1,7 +1,7 @@
 import { app, BrowserWindow } from "electron";
 import { render } from "./shell";
-import { WindowStateStore } from "../";
-import { start } from "../init";
+import { WindowStateStore, start } from "../store";
+
 import { userDataPath } from "../locations";
 
 console.log("user-data: " + userDataPath());

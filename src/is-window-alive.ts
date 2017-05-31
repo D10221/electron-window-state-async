@@ -1,10 +1,8 @@
 import * as util from "util";
-import { BrowserWindowLike } from "./types";
-export type BrowserWindow = BrowserWindowLike;
 
 /**
  * is window destroyed?/disposed/collected/null
  */
-export const isWindowAlive = (window: BrowserWindowLike) => {
+export const isWindowAlive = (window: Electron.BrowserWindow) => {
     return !util.isNullOrUndefined(window) && !window.isDestroyed();
 };

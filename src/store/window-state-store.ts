@@ -1,25 +1,30 @@
-import { isWindowAlive } from "./is-window-alive";
-// import { asyncStorage } from "electron-json-storage-async";
-import { StateData, BrowserWindowLike, EventKey } from "./types";
-import { createDebug } from "./create-debug";
+import { EventEmitter } from "events";
+
+// ..
+import { isWindowAlive } from "../is-window-alive";
+import { StateData, EventKey } from "../types";
+import { createDebug } from "../create-debug";
+import { storage } from "../storage";
+
+// ... this submodule
 import { hasBounds } from "./has-bounds";
 import { updateState } from "./update-state";
 import { validateBounds } from "./validate-bounds";
 import { isValidState } from "./is-valid-state";
-import * as storage from "./storage";
 
 const debug = createDebug("store");
 /**
  * Save/Restore window state
- * @param win {BrowserWindowLike}
+ * @param win {Electron.BrowserWindow}
  * @param onError {(e: Error) => callback} optional error callback
  */
-export class WindowStateStore {
+export class WindowStateStore extends EventEmitter {
     load: () => Promise<StateData>;
     save: () => Promise<void>;
     restore: () => Promise<void>;
     clear: () => Promise<void>;
-    constructor(private win: BrowserWindowLike) {
+    constructor(private win: Electron.BrowserWindow) {
+        super();
 
         const storeKey = `window_${win.id}`;
 
@@ -30,7 +35,6 @@ export class WindowStateStore {
                     return {};
                 });
         };
-
         this.save = async () => {
 
             if (!isWindowAlive(win)) {
@@ -42,7 +46,10 @@ export class WindowStateStore {
             updateState(win, state);
             validateBounds(state);
             if (!isValidState(state)) return;
-            return storage.set(storeKey, state);
+
+            const me = this;
+            return storage.set(storeKey, state)
+                .then(_ => me.emit("saved"));
         };
         // let state: StateData;
 
@@ -65,16 +72,23 @@ export class WindowStateStore {
             if (devToolsOpened) {
                 win.webContents.openDevTools();
             }
+            this.emit("restored");
         };
 
         /**
          * @summary clear current state
          */
         this.clear = () => {
-            return storage.get(storeKey);
+            const me = this;
+            return storage.get(storeKey)
+                .then(_ => {
+                    me.emit("cleared");
+                });
         };
     }
-    getWindow = () => this.win as Electron.BrowserWindow; // TODO: remove ?BrowserWindowLike Dependency ?
+    get window() {
+        return this.win as Electron.BrowserWindow;
+    }
     next = async (_key: EventKey) => {
         await this.save()
             .then(() => debug(`after-save: ${_key}`));

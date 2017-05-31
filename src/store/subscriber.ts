@@ -1,9 +1,9 @@
-import { Subscription, EventKey, ObserverLike, Registration } from "./types";
-import { isWindowAlive } from "./is-window-alive";
-import { BrowserWindowLike } from "./index";
+import { Subscription, EventKey, ObserverLike, Registration } from "../types";
+import { isWindowAlive } from "../is-window-alive";
 import { EventEmitter } from "events";
-import { createDebug } from "./create-debug";
+import { createDebug } from "../create-debug";
 const debug = createDebug("subscriber");
+
 /**
  * takes an Observer who's netx(key) will be invoked with the 'event'
  *  key used to register the 'event' callback on window & window.webContents.
@@ -18,6 +18,7 @@ export const subscriber = (observer: ObserverLike) => {
     const register = (emitter: EventEmitter, key: EventKey, throttle?: number) => {
         const skip: any = {};
         const callback = () => {
+            // Throttle:
             if (throttle > 0) {
                 if (skip[key]) return; // debug("Event: %s: skipped", key);
                 skip[key] = true;
@@ -39,7 +40,7 @@ export const subscriber = (observer: ObserverLike) => {
         /**
          * Rx?
          */
-        subscribe: (win: BrowserWindowLike): Subscription => {
+        subscribe: (win: Electron.BrowserWindow): Subscription => {
 
             let unSubscribed = false;
 
@@ -80,19 +81,14 @@ export const subscriber = (observer: ObserverLike) => {
 
                     // removeListener
                     winSubscriptions.forEach(
-                        x => win.removeListener(x.key, x.callback)
+                        x => (win as EventEmitter).removeListener(x.key, x.callback)
                     );
                     winSubscriptions = [];
 
                     webContentSubscriptions.forEach(
-                        x => win.webContents.removeListener(x.key, x.callback)
+                        x => (win.webContents as EventEmitter).removeListener(x.key, x.callback)
                     );
                     webContentSubscriptions = [];
-
-                    // win.removeListener("resize", onResize);
-                    // win.removeListener("move", onMove);
-                    // win.webContents.removeListener("devtools-opened", onDevtoolOpened);
-                    // win.webContents.removeListener("devtools-closed", onDevtoolClosed);
                 }
             };
         }

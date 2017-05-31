@@ -1,6 +1,7 @@
-import { createDebug } from "./create-debug";
+import { createDebug } from "../create-debug";
+import { Subscription } from "../types";
+
 import { WindowStateStore } from "./window-state-store";
-import { Subscription } from "./types";
 import { subscriber } from "./subscriber";
 
 const debug = createDebug("init");
@@ -13,7 +14,7 @@ export const start = (store: WindowStateStore) => new Promise((resolve, reject) 
         return;
     }
     started = true;
-    const win = store.getWindow();
+    const win = store.window;
     try {
         debug("%s", "starting... ");
         win.once("ready-to-show", async () => {

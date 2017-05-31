@@ -1,5 +1,5 @@
 import * as path from "path";
-import { storePath } from "./locations";
+import { storePath } from "./store-path";
 import { isNullOrUndefined as isNull } from "util";
 
 const _cache: any = {};
