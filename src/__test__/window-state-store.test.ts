@@ -7,16 +7,16 @@ describe("window state store", () => {
 
     it("clear", async () => {
         const w = new TestWindow();
-        const state = WindowStateStore(w);
+        const state = new WindowStateStore(w);
         await state.clear();
-        const values = await state.value();
+        const values = await state.load();
         // verify clean
         assert.deepEqual(values, {}, "not clean");
     });
 
     it("shouldn't save bounds, when full screeen", async () => {
         const w = new TestWindow();
-        const state = WindowStateStore(w);
+        const state = new WindowStateStore(w);
         await state.clear();
 
         const bounds1 = w.getBounds();
@@ -41,7 +41,7 @@ describe("window state store", () => {
 
     it("Should restore bounds when NOT full screen", async () => {
         const w = new TestWindow();
-        const state = WindowStateStore(w);
+        const state = new WindowStateStore(w);
         await state.clear();
 
         const bounds1 = w.getBounds();
@@ -66,7 +66,7 @@ describe("window state store", () => {
 
     it("Restores devTools Open", async () => {
         const w = new TestWindow();
-        const state = WindowStateStore(w);
+        const state = new WindowStateStore(w);
         await state.clear();
 
         w.webContents.openDevTools();

@@ -1,34 +1,20 @@
 import { app, BrowserWindow } from "electron";
 import { render } from "./shell";
 import { WindowStateStore } from "../";
+import { start } from "../init";
+import { userDataPath } from "../locations";
 
-const utils = require("electron-json-storage/lib/utils");
-console.log("user-data: " + utils.getUserDataPath());
+console.log("user-data: " + userDataPath());
 
 app.on("ready", async () => {
-
-    const store = WindowStateStore(new BrowserWindow({ show: false }));
-    const win = store.getWindow();
-
+    const win = new BrowserWindow({ show: false });
+    const store = new WindowStateStore(win);
     win.loadURL(render({
         title: "Electron window state store",
         scripts: ["window.js"]
     }));
-    /**
-     * WARNING: this one we emit from the store.
-     */
-    win.on("saved", () => {
-        console.log("saved");
-    });
-
-    await store.start();
-
-    if (!win.isVisible()) {
-        console.log("Showing");
-        win.show();
-    } else {
-        console.log("Already visible?");
-    }
+    await start(store);
+    win.show();
 });
 
 app.on("window-all-closed", () => {

@@ -14,7 +14,7 @@ const debug = createDebug("update-state");
  */
 export const updateState = (win: BrowserWindowLike, state: StateData) => {
     if (!isWindowAlive(win)) {
-        return false;
+        return;
     }
     try {
         const winBounds = win.getBounds() as Electron.Rectangle;
@@ -26,9 +26,9 @@ export const updateState = (win: BrowserWindowLike, state: StateData) => {
         state.fullScreen = win.isFullScreen();
         state.displayBounds = screen().getDisplayMatching(winBounds).bounds;
         state.devToolsOpened = win.webContents.isDevToolsOpened();
-        return true;
+        return ;
     } catch (err) {
         debug("%x", err.message);
-        return false;
+        return ;
     }
 };

@@ -1,11 +1,12 @@
 import { isWindowAlive } from "./is-window-alive";
-import { asyncStorage } from "electron-json-storage-async";
-import { StateData, BrowserWindowLike, Subscription, EventKey } from "./types";
-import { subscriber } from "./subscriber";
+// import { asyncStorage } from "electron-json-storage-async";
+import { StateData, BrowserWindowLike, EventKey } from "./types";
 import { createDebug } from "./create-debug";
 import { hasBounds } from "./has-bounds";
 import { updateState } from "./update-state";
-import { validate } from "./validate";
+import { validateBounds } from "./validate-bounds";
+import { isValidState } from "./is-valid-state";
+import * as storage from "./storage";
 
 const debug = createDebug("store");
 /**
@@ -13,122 +14,69 @@ const debug = createDebug("store");
  * @param win {BrowserWindowLike}
  * @param onError {(e: Error) => callback} optional error callback
  */
-export const WindowStateStore = (
+export class WindowStateStore {
+    load: () => Promise<StateData>;
+    save: () => Promise<void>;
+    restore: () => Promise<void>;
+    clear: () => Promise<void>;
+    constructor(private win: BrowserWindowLike) {
 
-    win: BrowserWindowLike,
+        const storeKey = `window_${win.id}`;
 
-    onError?: (e: Error) => void) => {
-
-    const storeKey = `window_${win.id}`;
-
-    onError = onError || ((e) => {
-        debug("%x", e.message);
-    });
-
-    const get = (): Promise<StateData> => {
-        return asyncStorage.get(storeKey).catch(ex => {
-            debug("Error: %x", ex.message);
-            return {};
-        });
-    };
-
-    const save = async () => {
-        if (!isWindowAlive(win)) {
-            debug("%x", "Window not alive");
-            return Promise.resolve();
-        }
-        // no neeed to save
-        if (!updateState(win, state)) return Promise.resolve();
-        if (!validate(state)) return Promise.resolve;
-
-        await asyncStorage.set(storeKey, state);
-        win.emit("saved");
-        return Promise.resolve();
-    };
-    let state: StateData;
-
-    /**
-     * restored from last saved
-     */
-    const restore = async () => {
-
-        state = (await get()) || {
-            devToolsOpened: false,
-            fullScreen: false,
-            isMaximized: false
+        this.load = (): Promise<StateData> => {
+            return storage.get(storeKey)
+                .catch(e => {
+                    debug("%e", e.message);
+                    return {};
+                });
         };
-        const { devToolsOpened, fullScreen, isMaximized } = state;
 
-        if (hasBounds(state)) {
-            win.setBounds(state.bounds);
-        }
-        if (isMaximized) {
-            win.maximize();
-        }
-        if (fullScreen) {
-            win.setFullScreen(fullScreen);
-        }
-        if (devToolsOpened) {
-            win.webContents.openDevTools();
-        }
-    };
+        this.save = async () => {
 
-    /**
-     * @summary clear current state
-     */
-    const clear = () => {
-        return asyncStorage.set(storeKey, {});
-    };
+            if (!isWindowAlive(win)) {
+                debug("%x", "Window not alive");
+                return Promise.resolve();
+            }
 
-    /**
-     * Note: rx can replace this
-     */
-    const observer = {
-        next: async (_key: EventKey) => {
-            await save();
-        }
-    };
+            const state = {};
+            updateState(win, state);
+            validateBounds(state);
+            if (!isValidState(state)) return;
+            return storage.set(storeKey, state);
+        };
+        // let state: StateData;
 
-    // :(
-    let subscription: Subscription;
-    let started = false;
-    // ...
-    return {
-        getWindow: () => win as Electron.BrowserWindow, // TODO: remove ?BrowserWindowLike Dependency ?
-        restore,
-        save,
-        clear,
-        value: get,
         /**
-         * subscribe to window events and save it's curent state
-         * Note: rxjs can replace this
+         * restored from last saved
          */
-        subscribe: () => {
-            // TODO: await restore() ?; //StartWith?
-            return subscriber(observer).subscribe(win);
-        },
-        start: () => new Promise((resolve, reject) => {
-            if (started) {
-                reject(new Error("Already Started"));
-                return;
+        this.restore = async () => {
+            const state = (await this.load());
+            const { devToolsOpened, fullScreen, isMaximized } = state;
+
+            if (hasBounds(state)) {
+                win.setBounds(state.bounds);
             }
-            started = true;
-            try {
-                debug("%s", "starting... ");
-                win.once("ready-to-show", async () => {
-                    await restore();
-                    debug("%s", "subscribing: on ready-to-show");
-                    subscription = subscriber(observer).subscribe(win);
-                    resolve();
-                });
-                win.once("close", (_e: Electron.Event) => {
-                    debug("%s", "closing");
-                    // _e.preventDefault(); //will prevent close
-                    subscription.unsubscribe();
-                });
-            } catch (e) {
-                reject(e);
+            if (isMaximized) {
+                win.maximize();
             }
-        })
-    };
-};
+            if (fullScreen) {
+                win.setFullScreen(fullScreen);
+            }
+            if (devToolsOpened) {
+                win.webContents.openDevTools();
+            }
+        };
+
+        /**
+         * @summary clear current state
+         */
+        this.clear = () => {
+            return storage.get(storeKey);
+        };
+    }
+    getWindow = () => this.win as Electron.BrowserWindow; // TODO: remove ?BrowserWindowLike Dependency ?
+    next = async (_key: EventKey) => {
+        await this.save()
+            .then(() => debug(`after-save: ${_key}`));
+    }
+}

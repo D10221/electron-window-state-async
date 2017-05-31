@@ -59,7 +59,19 @@ export interface Subscription {
     unsubscribe(): void;
 }
 
-export type EventKey = "resize" | "move" | "devtools-opened" | "devtools-closed" | "close" | "closed";
+export type EventKey =
+    "resize" |
+    "move" |
+    "devtools-opened" |
+    "devtools-closed" |
+    "close" |
+    "closed" |
+    "maximize"|
+    "unmaximize"|
+    "minimize"|
+    "restore"|
+    "enter-full-screen"|
+    "leave-full-screen";
 
 /**
  * minimal event key observer

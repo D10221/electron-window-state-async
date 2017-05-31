@@ -3,12 +3,13 @@ import { waitEvent } from "./wait-event";
 import { WindowStateStore } from "../window-state-store";
 import { TestWindow } from "./TestWindow";
 import { isError } from "util";
+import { subscriber } from "../subscriber";
 
 
 describe("subscribing", () => {
     it("Works", async () => {
         const w = new TestWindow();
-        const store = WindowStateStore(w);
+        const store = new WindowStateStore(w);
         await store.clear();
         w.defaults();
         assert.ok(!w.isDestroyed(), "win destroyed");
@@ -18,12 +19,12 @@ describe("subscribing", () => {
         assert.deepEqual(w.getBounds(), { x: 1, y: 1, width: 1, height: 1 }, "defautls: Not bounds");
         assert.ok(!w.webContents.isDevToolsOpened(), "defautls: Not devtools open");
 
-        const subscription = store.subscribe();
+        const subscription = subscriber(store).subscribe(w);
         // ...
         w.setFullScreen(true);
         await waitEvent(w, "saved", 1000);
         assert.equal(
-            (await store.value()).fullScreen,
+            (await store.load()).fullScreen,
             // expected:
             true,
             "didnt resize fullscreen"
@@ -32,14 +33,14 @@ describe("subscribing", () => {
         w.setFullScreen(false);
         await waitEvent(w, "saved", 1000);
         assert.ok(
-            !(await store.value()).fullScreen,
+            !(await store.load()).fullScreen,
             "didn't resize not not-fullscreen"
         );
 
         const bounds3 = { x: 3, y: 3, width: 3, height: 3 };
         w.setBounds(bounds3);
         await waitEvent(w, "saved", 1000);
-        const xxx = await store.value();
+        const xxx = await store.load();
         assert.ok(!xxx.fullScreen, "it hsouldn't be full screen");
         assert.deepEqual(
             xxx.bounds, bounds3,
@@ -52,7 +53,7 @@ describe("subscribing", () => {
                 throw ex;
             });
         assert.equal(
-            (await store.value()).devToolsOpened,
+            (await store.load()).devToolsOpened,
             // expected:
             true,
             "didn't save openDevTools"
@@ -66,7 +67,7 @@ describe("subscribing", () => {
             });
 
         assert.equal(
-            (await store.value()).devToolsOpened,
+            (await store.load()).devToolsOpened,
             // expected:
             false,
             "didn't closeDevTools"
@@ -87,7 +88,7 @@ describe("subscribing", () => {
             .catch(ex => ex);
         assert.ok(isError(error), "Should timeout");
         assert.equal(
-            (await store.value()).fullScreen,
+            (await store.load()).fullScreen,
             // expected:
             false,
             "shouldn't be fullscreen"

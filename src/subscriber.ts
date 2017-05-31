@@ -15,8 +15,14 @@ export const subscriber = (observer: ObserverLike) => {
     /**
      * sort of relay:
      */
-    const register = (emitter: EventEmitter, key: EventKey) => {
+    const register = (emitter: EventEmitter, key: EventKey, throttle?: number) => {
+        const skip: any = {};
         const callback = () => {
+            if (throttle > 0) {
+                if (skip[key]) return; // debug("Event: %s: skipped", key);
+                skip[key] = true;
+                setTimeout(() => { skip[key] = false; }, throttle);
+            }
             debug("Event: %x", key);
             observer.next(key);
         };
@@ -38,10 +44,16 @@ export const subscriber = (observer: ObserverLike) => {
             let unSubscribed = false;
 
             winSubscriptions.concat([
-                register(win, "resize"),
-                register(win, "move"),
+                register(win, "resize", 100),
+                register(win, "move", 100),
+                register(win, "maximize"),
+                register(win, "unmaximize"),
+                register(win, "minimize"),
+                register(win, "restore"),
+                register(win, "enter-full-screen"),
+                register(win, "leave-full-screen"),
                 register(win, "close"),
-                register(win, "closed")
+                // register(win, "closed")
             ]);
 
             webContentSubscriptions.concat([
