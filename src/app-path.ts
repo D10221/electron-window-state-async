@@ -8,9 +8,8 @@ const app = () => {
 
 const _cache: any = {};
 export const getPathByName = (key: "userData") => {
-    const value = Object.keys(_cache).find(x => x === key);
-    if (!isNull(value)) {
-        return value;
+    if (!isNull(_cache[key])) {
+        return _cache[key];
     }
     _cache[key] = app().getPath(key);
     return _cache[key];
