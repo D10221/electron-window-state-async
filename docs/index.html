@@ -992,18 +992,13 @@ img { max-width: 100%; }
 			<h3 id="electron-window-state-async-store-">Electron window state async store:</h3>
 			<p>Based on <strong><a href="https://github.com/mawie81/electron-window-state">electron-window-state</a></strong></p>
 			<p>Intended Usage:</p>
-			<pre><code><span class="hljs-keyword">const</span> <span class="hljs-keyword">win</span> = new BrowserWindow();
-<span class="hljs-keyword">const</span> store = WindowStateStore(w);    
-<span class="hljs-keyword">const</span> subscription = store.subscribe();
-<span class="hljs-comment">// ...</span>
-<span class="hljs-keyword">win</span>.<span class="hljs-keyword">on</span>(<span class="hljs-string">"close"</span>, ()=&gt;{
-    <span class="hljs-comment">// ....</span>
-    subscription.unsubscribe();
-});
-<span class="hljs-keyword">app</span>.<span class="hljs-keyword">on</span>(<span class="hljs-string">"ready"</span>, async ()=&gt;{
-    <span class="hljs-comment">// ...</span>
-    await store.<span class="hljs-keyword">restore</span>();
-});
+			<pre><code>app.<span class="hljs-keyword">on</span>(<span class="hljs-string">"ready"</span>, <span class="hljs-keyword">async</span> ()=&gt; {
+    <span class="hljs-keyword">const</span> win = <span class="hljs-keyword">new</span> BrowserWindow({ show: <span class="hljs-literal">false</span> }); 
+    <span class="hljs-keyword">const</span> store = <span class="hljs-keyword">new</span> WindowStateStore(win);
+    win.loadURL(<span class="hljs-string">"file://index.html"</span>);
+    <span class="hljs-keyword">await</span> start(store);
+    win.show();
+})
 </code></pre><p>worked on: </p>
 			<pre><code>.<span class="hljs-regexp">/src/</span>__app__
 </code></pre><h5 id="-docs-https-d10221-github-io-electron-window-state-async-"><a href="https://d10221.github.io/electron-window-state-async/">Docs:</a></h5>
@@ -1074,7 +1069,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">Event<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"resize"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"move"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"devtools-opened"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"devtools-closed"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"close"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"closed"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"maximize"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"unmaximize"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"minimize"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"restore"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"enter-full-screen"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"leave-full-screen"</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/2506577/src/types.ts#L22">types.ts:22</a></li>
+						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/33e29c2/src/types.ts#L22">types.ts:22</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1087,7 +1082,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">is<wbr>Debug<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;process.env.NODE_ENV !&#x3D;&#x3D; &quot;production&quot;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/2506577/src/is-debug.ts#L1">is-debug.ts:1</a></li>
+						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/33e29c2/src/is-debug.ts#L1">is-debug.ts:1</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1097,7 +1092,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">store<wbr>Folder<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"window-state-storage"</span><span class="tsd-signature-symbol"> =&nbsp;&quot;window-state-storage&quot;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/2506577/src/storage/store-path.ts#L6">storage/store-path.ts:6</a></li>
+						<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/33e29c2/src/storage/store-path.ts#L6">storage/store-path.ts:6</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1114,7 +1109,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/2506577/src/create-debug.ts#L5">create-debug.ts:5</a></li>
+								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/33e29c2/src/create-debug.ts#L5">create-debug.ts:5</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1137,7 +1132,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/2506577/src/storage/storage.ts#L20">storage/storage.ts:20</a></li>
+								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/33e29c2/src/storage/storage.ts#L20">storage/storage.ts:20</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1160,7 +1155,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/2506577/src/app-path.ts#L10">app-path.ts:10</a></li>
+								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/33e29c2/src/app-path.ts#L10">app-path.ts:10</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1183,7 +1178,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/2506577/src/storage/storage-file-path.ts#L6">storage/storage-file-path.ts:6</a></li>
+								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/33e29c2/src/storage/storage-file-path.ts#L6">storage/storage-file-path.ts:6</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1206,7 +1201,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/2506577/src/store/has-bounds.ts#L4">store/has-bounds.ts:4</a></li>
+								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/33e29c2/src/store/has-bounds.ts#L4">store/has-bounds.ts:4</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1229,7 +1224,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/2506577/src/store/is-valid-state.ts#L4">store/is-valid-state.ts:4</a></li>
+								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/33e29c2/src/store/is-valid-state.ts#L4">store/is-valid-state.ts:4</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1252,7 +1247,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/2506577/src/is-window-alive.ts#L6">is-window-alive.ts:6</a></li>
+								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/33e29c2/src/is-window-alive.ts#L6">is-window-alive.ts:6</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1280,7 +1275,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/2506577/src/__app__/shell.ts#L4">__app__/shell.ts:4</a></li>
+								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/33e29c2/src/__app__/shell.ts#L4">__app__/shell.ts:4</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1305,7 +1300,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/2506577/src/screen.ts#L5">screen.ts:5</a></li>
+								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/33e29c2/src/screen.ts#L5">screen.ts:5</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Screen</span></h4>
@@ -1322,7 +1317,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/2506577/src/storage/storage.ts#L7">storage/storage.ts:7</a></li>
+								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/33e29c2/src/storage/storage.ts#L7">storage/storage.ts:7</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1348,7 +1343,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/2506577/src/store/init.ts#L11">store/init.ts:11</a></li>
+								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/33e29c2/src/store/init.ts#L11">store/init.ts:11</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1371,7 +1366,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/2506577/src/storage/store-path.ts#L8">storage/store-path.ts:8</a></li>
+								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/33e29c2/src/storage/store-path.ts#L8">storage/store-path.ts:8</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -1388,7 +1383,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/2506577/src/store/subscriber.ts#L13">store/subscriber.ts:13</a></li>
+								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/33e29c2/src/store/subscriber.ts#L13">store/subscriber.ts:13</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1421,7 +1416,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/2506577/src/store/update-state.ts#L15">store/update-state.ts:15</a></li>
+								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/33e29c2/src/store/update-state.ts#L15">store/update-state.ts:15</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1447,7 +1442,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/2506577/src/locations.ts#L5">locations.ts:5</a></li>
+								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/33e29c2/src/locations.ts#L5">locations.ts:5</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -1464,7 +1459,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/2506577/src/store/validate-bounds.ts#L10">store/validate-bounds.ts:10</a></li>
+								<li>Defined in <a href="https://github.com/D10221/electron-window-state-async/blob/33e29c2/src/store/validate-bounds.ts#L10">store/validate-bounds.ts:10</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
