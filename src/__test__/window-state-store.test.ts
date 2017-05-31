@@ -23,8 +23,8 @@ describe("window store test", () => {
         win.setFullScreen(true);
         assert.ok(win.isFullScreen(), "should be fullScreen");
         await store.save();
+        win.setFullScreen(false);
         await store.restore();
-          win.setFullScreen(false);
         assert.ok(win.isFullScreen(), "should be fullScreen after restore");
     });
 });
