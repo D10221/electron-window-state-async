@@ -24,7 +24,7 @@ launching tests:
 
 Or ..
 
-    $export WINDOW_STATE_HOME=$HOME/tmp && clear  && ./scripts/test.js
+    $export WINDOW_STATE_HOME=$HOME/tmp  && ./scripts/test.js
 
 ...that rebuilds 1st  
 
