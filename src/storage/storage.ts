@@ -4,6 +4,11 @@ import { writeFile, readFile } from "fs";
 
 const debug = createDebug("storage");
 
+/**
+ * persists to <userData>/<storage-name>/<storekey>.json, 
+ * @param storeKey {string} - file name without extension
+ * @param data {any} - to write to file as json
+ */
 export const set = (storeKey: string, data: any) => {
     const _path = getStorageFilePath(storeKey);
     return outputJSON(_path, data)
@@ -17,6 +22,10 @@ export const set = (storeKey: string, data: any) => {
         });
 };
 
+/**
+ * reads what's stored on <userData>/<storage-name>/<storekey>.json, 
+ * @param storeKey {string} - identifier/filename without extension
+ */
 export const get = (storeKey: string) => {
     const _path = getStorageFilePath(storeKey);
     return readJSON(_path)
@@ -29,7 +38,11 @@ export const get = (storeKey: string) => {
             return {};
         });
 };
-
+/**
+ * writes to json file
+ * @param _path {string} - full path to save to 
+ * @param data {any} - to jsoned
+ */
 const outputJSON = (_path: string, data: any) => new Promise(
     (resolve, reject) => {
         try {
@@ -49,6 +62,11 @@ const outputJSON = (_path: string, data: any) => new Promise(
     }
 );
 
+/**
+ * reads and parse json file from provided path.
+ * nothing asumed bu json format
+ * @param _path {string} path to json file
+ */
 const readJSON = (_path: string) => new Promise<any>(
     (resolve, reject) => {
         readFile(_path, "utf-8", (error, json) => {

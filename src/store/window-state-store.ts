@@ -1,6 +1,6 @@
 import { EventEmitter } from "events";
 
-// ..
+// .. up
 import { isWindowAlive } from "../is-window-alive";
 import { StateData, EventKey } from "../types";
 import { createDebug } from "../create-debug";
@@ -14,21 +14,33 @@ import { isValidState } from "./is-valid-state";
 
 const debug = createDebug("store");
 /**
- * Save/Restore window state
+ * Saves Restore window state 
  * @param win {Electron.BrowserWindow}
- * @param onError {(e: Error) => callback} optional error callback
  */
 export class WindowStateStore extends EventEmitter {
-    load: () => Promise<StateData>;
+    /**
+     * get curently stored state
+     */
+    getState: () => Promise<StateData>;
+    /**
+     * saves window state 
+     */
     save: () => Promise<void>;
+    /**
+     * sets window values from stored state
+     */
     restore: () => Promise<void>;
+    /**
+     * set stored state to empty
+     */
     clear: () => Promise<void>;
+    
     constructor(private win: Electron.BrowserWindow) {
         super();
 
         const storeKey = `window_${win.id}`;
 
-        this.load = (): Promise<StateData> => {
+        this.getState = (): Promise<StateData> => {
             return storage.get(storeKey)
                 .catch(e => {
                     debug("%e", e.message);
@@ -57,7 +69,7 @@ export class WindowStateStore extends EventEmitter {
          * restored from last saved
          */
         this.restore = async () => {
-            const state = (await this.load());
+            const state = (await this.getState());
             const { devToolsOpened, fullScreen, isMaximized } = state;
 
             if (hasBounds(state)) {
@@ -80,15 +92,21 @@ export class WindowStateStore extends EventEmitter {
          */
         this.clear = () => {
             const me = this;
-            return storage.get(storeKey)
+            return storage.set(storeKey, {})
                 .then(_ => {
                     me.emit("cleared");
                 });
         };
     }
+    /**
+     * gets the window 
+     */
     get window() {
         return this.win as Electron.BrowserWindow;
     }
+    /**
+     * ObserverLike interface Implementation
+     */
     next = async (_key: EventKey) => {
         await this.save()
             .then(() => debug(`after-save: ${_key}`));
