@@ -1,4 +1,4 @@
-import { StateData } from "./types";
+import { StateData } from "../types";
 import { isNullOrUndefined as isNull } from "util";
 
 export const hasBounds = (state: StateData) => {

@@ -1,4 +1,4 @@
-import { StateData } from "./types";
+import { StateData } from "../types";
 import { hasBounds } from "./has-bounds";
 
 export const isValidState = (state: StateData): boolean => {

@@ -1,6 +1,6 @@
 /// <reference types="node" />
 import { EventEmitter } from "events";
-export interface RectangleLike {
+export interface Electron.Rectangle {
     x?: number;
     y?: number;
     width?: number;
@@ -11,12 +11,12 @@ export interface WebContentsLike extends EventEmitter {
     openDevTools?: () => void;
     closeDevTools?: () => void;
 }
-export interface BrowserWindowLike extends EventEmitter {
+export interface Electron.BrowserWindow extends EventEmitter {
     id?: any;
     isFullScreen?: () => boolean;
     setFullScreen?: (x: boolean) => void;
-    getBounds?: () => RectangleLike;
-    setBounds?: (x: RectangleLike) => void;
+    getBounds?: () => Electron.Rectangle;
+    setBounds?: (x: Electron.Rectangle) => void;
     webContents?: WebContentsLike;
     isDestroyed?: () => boolean;
     destroy?: () => void;
@@ -24,7 +24,7 @@ export interface BrowserWindowLike extends EventEmitter {
 export interface StateData {
     fullScreen?: boolean;
     devToolsOpened?: boolean;
-    bounds?: RectangleLike;
+    bounds?: Electron.Rectangle;
 }
 export interface Subscription {
     isUnsubscribed(): boolean;

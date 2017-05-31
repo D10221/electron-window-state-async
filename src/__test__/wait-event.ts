@@ -1,7 +1,7 @@
 import { EventEmitter } from "events";
 
 /**
- * Test Support promify EventEmitter, with timeOut
+ * Test Support promisify EventEmitter, with timeOut
  */
 export const waitEvent = (e: EventEmitter, key: string, timeout: number) => new Promise(
     (resolve, reject) => {

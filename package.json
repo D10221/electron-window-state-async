@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "test": "electron-mocha test.js",
+    "test": "electron-mocha ./built/__test__/*.test.js",
     "build": "tsc -p .",
     "clean": "rimraf ./built",
     "rebuild": "npm run clean && npm run build",
@@ -25,11 +25,14 @@
   "license": "MIT",
   "dependencies": {
     "debug": "^2.6.8",
-    "electron-json-storage-async": "git+https://github.com/D10221/electron-json-storage-async.git"
+    "deep-equal": "^1.0.1",
+    "electron-json-storage-async": "git+https://github.com/D10221/electron-json-storage-async.git",
+    "mkdirp": "^0.5.1"
   },
   "devDependencies": {
     "@types/debug": "0.0.29",
-    "@types/electron": "^1.4.38",
+    "@types/deep-equal": "^1.0.0",
+    "@types/mkdirp": "^0.3.29",
     "@types/mocha": "^2.2.41",
     "@types/node": "^7.0.22",
     "@types/shelljs": "^0.7.1",

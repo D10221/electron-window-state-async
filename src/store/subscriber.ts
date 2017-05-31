@@ -1,9 +1,9 @@
-import { Subscription, EventKey, ObserverLike, Registration } from "./types";
-import { isWindowAlive } from "./is-window-alive";
-import { BrowserWindowLike } from "./index";
+import { Subscription, EventKey, ObserverLike, Registration } from "../types";
+import { isWindowAlive } from "../is-window-alive";
 import { EventEmitter } from "events";
-import { createDebug } from "./create-debug";
+import { createDebug } from "../create-debug";
 const debug = createDebug("subscriber");
+
 /**
  * takes an Observer who's netx(key) will be invoked with the 'event'
  *  key used to register the 'event' callback on window & window.webContents.
@@ -15,8 +15,15 @@ export const subscriber = (observer: ObserverLike) => {
     /**
      * sort of relay:
      */
-    const register = (emitter: EventEmitter, key: EventKey) => {
+    const register = (emitter: EventEmitter, key: EventKey, throttle?: number) => {
+        const skip: any = {};
         const callback = () => {
+            // Throttle:
+            if (throttle > 0) {
+                if (skip[key]) return; // debug("Event: %s: skipped", key);
+                skip[key] = true;
+                setTimeout(() => { skip[key] = false; }, throttle);
+            }
             debug("Event: %x", key);
             observer.next(key);
         };
@@ -33,15 +40,21 @@ export const subscriber = (observer: ObserverLike) => {
         /**
          * Rx?
          */
-        subscribe: (win: BrowserWindowLike): Subscription => {
+        subscribe: (win: Electron.BrowserWindow): Subscription => {
 
             let unSubscribed = false;
 
             winSubscriptions.concat([
-                register(win, "resize"),
-                register(win, "move"),
+                register(win, "resize", 100),
+                register(win, "move", 100),
+                register(win, "maximize"),
+                register(win, "unmaximize"),
+                register(win, "minimize"),
+                register(win, "restore"),
+                register(win, "enter-full-screen"),
+                register(win, "leave-full-screen"),
                 register(win, "close"),
-                register(win, "closed")
+                // register(win, "closed")
             ]);
 
             webContentSubscriptions.concat([
@@ -68,19 +81,14 @@ export const subscriber = (observer: ObserverLike) => {
 
                     // removeListener
                     winSubscriptions.forEach(
-                        x => win.removeListener(x.key, x.callback)
+                        x => (win as EventEmitter).removeListener(x.key, x.callback)
                     );
                     winSubscriptions = [];
 
                     webContentSubscriptions.forEach(
-                        x => win.webContents.removeListener(x.key, x.callback)
+                        x => (win.webContents as EventEmitter).removeListener(x.key, x.callback)
                     );
                     webContentSubscriptions = [];
-
-                    // win.removeListener("resize", onResize);
-                    // win.removeListener("move", onMove);
-                    // win.webContents.removeListener("devtools-opened", onDevtoolOpened);
-                    // win.webContents.removeListener("devtools-closed", onDevtoolClosed);
                 }
             };
         }
