@@ -32,7 +32,7 @@ Or ...
 
 Or ...
 
-    ./scripts/test.js --build false # dont' build
+    ./scripts/test.js --build false # don't build
 
 
 #### set debug on: 
