@@ -36,12 +36,19 @@ const platFormElectronMocha = isWindows
     ? "node_modules\\.bin\\electron-mocha.cmd"
     : "node_modiules/.bin/electron-mocha";
 
-const isDebug = getFlag("--debug") !== "false";
+/**
+ * @param arg {string}
+ */
+const isOff = (arg) => {    
+    return ["false", "off", "no"].indexOf((arg||"").toLowerCase()) !== -1;
+}
 
-const build = getFlag("--build") === "false" ? "" :
-    "npm run build";
+const isDebug = !isOff(getFlag("--debug"));
+const isBuild = !isOff(getFlag("--build"));
 
-const cmds = [    
+const build = isBuild ? "npm run build" : "";
+
+const cmds = [
     `${build}`,
     `${platFormElectronMocha} ./built/__test__/**/*.test.js`
 ]
