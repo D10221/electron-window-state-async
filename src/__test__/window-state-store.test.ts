@@ -32,7 +32,7 @@ describe("window store", () => {
         assert.ok(win.isFullScreen(), "should be fullScreen");
         await store.save();
         win.setFullScreen(false); // off
-        assert.ok(win.isFullScreen());
+        assert.ok(!win.isFullScreen(), "Wtf?");
         await store.restore(); // back on
         assert.ok(win.isFullScreen(), "should be fullScreen after restore");
     });
