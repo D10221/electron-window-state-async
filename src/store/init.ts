@@ -13,11 +13,12 @@ let started: number[] = [];
 let subscription: Subscription;
 
 /**
- * Initialize provided store, restore store's window,\n
- * subscribe to store window events \n
- * and remove listeners when window closing.
+ * Initialize provided store, restore store's window,
+ *  subscribe to store window events,
+ *  and remove listeners when window closing.
+ *  Prevents starting twice same window;
  * @param store store to initialize
- * @returns a promise, resolves when restored and subscribed to window events
+ * @returns a promise, resolves when store's window is restored and subscribed.
  */
 export const start = (store: WindowStateStore) => new Promise((resolve, reject) => {
     // dont start twice
