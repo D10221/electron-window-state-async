@@ -4,14 +4,44 @@
  * test launcher
  * export WINDOW_STATE_HOME=$HOME/tmp
  */
+
+const fs = require("fs");
+const path = require("path");
+const getFlag = (key) => {
+    const args = process.argv.slice(2);
+    const i = args.indexOf(key);
+    if(i === -1) return null;
+    return args[i+1];
+};
+
+const home = getFlag("--home") || process.env.WINDOW_STATE_HOME;
+if (!home) {
+    console.error("$WINDOW_STATE_HOME not set")
+    process.exit(-1);
+}
+if (!fs.existsSync(path.resolve(home))) {
+    console.error(`$WINDOW_STATE_HOME=${home} doesn't exists`)
+    process.exit(-1);
+}
+if (!fs.statSync(path.resolve(home)).isDirectory()) {
+    console.error(`$WINDOW_STATE_HOME=${home} is not a Directory`)
+    process.exit(-1);
+}
+const isWindows = process.platform === "win32";
+const platformExport = isWindows ? "SET" : "export";
+const platFormElectronMocha = isWindows
+    ? "node_modules\\.bin\\electron-mocha.cmd"
+    : "node_modiules/.bin/electron-mocha";
+
+// run
 process.exit(
     require("shelljs")
-    .exec(
-        "export DEBUG=\"window-state:*\" "+
+        .exec(
+        `${platformExport} DEBUG=\"window-state:*\" ` +
         "DEBUG_COLORS=true " +
-        `WINDOW_STATE_HOME='${process.env.WINDOW_STATE_HOME}' &&`+
+        `WINDOW_STATE_HOME='${home}' &&` +
         "npm run build &&" +
         "echo $WINDOW_STATE_HOME &&" +
-        "node_modules/.bin/electron-mocha "+
+        ` ${platFormElectronMocha} ` +
         " ./built/__test__/**/*.test.js"
-    ).code);    
+        ).code);    
