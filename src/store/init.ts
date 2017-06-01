@@ -9,37 +9,42 @@ import { WindowStateStore } from "./window-state-store";
 import { subscriber } from "./subscriber";
 
 const debug = createDebug("init");
-let started = false;
+let started: number[] = [];
 let subscription: Subscription;
 
 /**
- * Initialize provided store, restore store's window, and remove listeners when window closing
+ * Initialize provided store, restore store's window,\n
+ * subscribe to store window events \n
+ * and remove listeners when window closing.
  * @param store store to initialize
  * @returns a promise, resolves when restored and subscribed to window events
  */
 export const start = (store: WindowStateStore) => new Promise((resolve, reject) => {
-    if (started) {
-        reject(new Error("Already Started"));
+    // dont start twice
+    const didStart = started.indexOf(store.window.id) !== -1;
+    if (didStart) {
+        reject(new Error(`window: ${store.window.id} already started`));
         return;
     }
-    started = true;
-    const win = store.window;
+    started.push(store.window.id);
+    // ...
     try {
-        debug("%s", "starting... ");
-        win.once("ready-to-show", async () => {
+        store.window.once("ready-to-show", async () => {
             await store.restore();
             debug("%s", "subscribing: on ready-to-show");
-            subscription = subscriber(store).subscribe(win);
+            subscription = subscriber(store).subscribe(store.window);
             resolve();
         });
 
-        win.once("close", (_e: Electron.Event) => {
+        store.window.once("close", (_e: Electron.Event) => {
             // TODO: what if close is cancelled ?
             debug("%s", "closing");
             subscription.unsubscribe();
+            started = started.filter(id => id !== store.window.id);
         });
 
     } catch (e) {
+        debug("%e", e.message);
         reject(e);
     }
 });
