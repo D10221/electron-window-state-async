@@ -14,27 +14,31 @@ import { isValidState } from "./is-valid-state";
 
 const debug = createDebug("store");
 /**
- * Saves Restore window state 
+ * Save, restore, manage, window state
  * @param win {Electron.BrowserWindow}
  */
 export class WindowStateStore extends EventEmitter {
+
     /**
-     * get curently stored state
+     * get currently stored state
      */
     getState: () => Promise<StateData>;
+
     /**
-     * saves window state 
+     * saves window state
      */
     save: () => Promise<void>;
+
     /**
      * sets window values from stored state
      */
     restore: () => Promise<void>;
+
     /**
      * set stored state to empty
      */
     clear: () => Promise<void>;
-    
+
     constructor(private win: Electron.BrowserWindow) {
         super();
 
@@ -47,6 +51,7 @@ export class WindowStateStore extends EventEmitter {
                     return {};
                 });
         };
+
         this.save = async () => {
 
             if (!isWindowAlive(win)) {
@@ -55,15 +60,17 @@ export class WindowStateStore extends EventEmitter {
             }
 
             const state = {};
+            // collect window data
             updateState(win, state);
+            // correct bounds
             validateBounds(state);
-            if (!isValidState(state)) return;
 
+            // persist
+            if (!isValidState(state)) return;
             const me = this;
             return storage.set(storeKey, state)
                 .then(_ => me.emit("saved"));
         };
-        // let state: StateData;
 
         /**
          * restored from last saved
@@ -99,7 +106,7 @@ export class WindowStateStore extends EventEmitter {
         };
     }
     /**
-     * gets the window 
+     * gets the window
      */
     get window() {
         return this.win as Electron.BrowserWindow;
