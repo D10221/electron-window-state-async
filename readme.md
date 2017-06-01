@@ -18,6 +18,20 @@ see:
 
     ./src/__app__
 
+build: 
+
+    npm run build # Dev/Debug
+
+dist:     
+
+    npm run dist #update /dist with tsconfig.prod.json
+
+gen docs:
+
+    npm run doc # update docs
+
+
+
 launching tests:
 
     $export WINDOW_STATE_HOME=$HOME/tmp && electron-mocha ./built/__test__/**/*.test.js
