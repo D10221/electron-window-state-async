@@ -26,7 +26,13 @@ Or ..
 
     $export WINDOW_STATE_HOME=$HOME/tmp  && ./scripts/test.js
 
-...that rebuilds 1st  
+Or ...
+
+    ./script/test.js --home $HOME/tmp
+
+Or ...
+
+    ./scripts/test.js --build false # dont' build
 
 
 #### set debug on: 
