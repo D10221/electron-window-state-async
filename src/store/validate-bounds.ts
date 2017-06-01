@@ -7,6 +7,10 @@ import { isValidState } from "./is-valid-state";
 
 type Rectangle = Electron.Rectangle;
 
+/**
+ * Adjust bounds according to current displayBounds.
+ * @param state state data to be validated
+ */
 export const validateBounds = (state: StateData) => {
     if (!isValidState(state)) return;
     if (!(hasBounds(state) && state.displayBounds)) return;

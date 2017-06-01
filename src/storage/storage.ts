@@ -1,3 +1,7 @@
+/**
+ * json backed local storage
+ */
+
 import { getStorageFilePath } from "./storage-file-path";
 import { createDebug } from "../create-debug";
 import { writeFile, readFile } from "fs";

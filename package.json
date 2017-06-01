@@ -38,6 +38,7 @@
     "@types/shelljs": "^0.7.1",
     "electron": "^1.6.10",
     "electron-mocha": "^3.4.0",
+    "mini-shell": "git+https://github.com/D10221/mini-shell.git",
     "shelljs": "^0.7.7"
   }
 }

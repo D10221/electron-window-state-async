@@ -10,7 +10,7 @@ function isNormal(win: Electron.BrowserWindow) {
 const debug = createDebug("update-state");
 
 /**
- * @summary Mutate stored State
+ * Mutate/Update to be stored State with window data
  */
 export const updateState = (win: Electron.BrowserWindow, state: StateData) => {
     if (!isWindowAlive(win)) {
