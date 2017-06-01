@@ -18,6 +18,24 @@ see:
 
     ./src/__app__
 
+___
+
+### Project:
+
+build: 
+
+    npm run build # Dev/Debug
+
+dist:     
+
+    npm run dist #update /dist with tsconfig.prod.json
+
+gen docs:
+
+    npm run doc # update docs
+
+
+
 launching tests:
 
     $export WINDOW_STATE_HOME=$HOME/tmp && electron-mocha ./built/__test__/**/*.test.js
@@ -26,7 +44,13 @@ Or ..
 
     $export WINDOW_STATE_HOME=$HOME/tmp  && ./scripts/test.js
 
-...that rebuilds 1st  
+Or ...
+
+    ./script/test.js --home $HOME/tmp
+
+Or ...
+
+    ./scripts/test.js --build false # don't build
 
 
 #### set debug on: 
