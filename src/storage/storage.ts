@@ -5,7 +5,7 @@ import { writeFile, readFile } from "fs";
 const debug = createDebug("storage");
 
 /**
- * persists to <userData>/<storage-name>/<storekey>.json, 
+ * persists to <userData>/<storage-name>/<storekey>.json,
  * @param storeKey {string} - file name without extension
  * @param data {any} - to write to file as json
  */
@@ -23,7 +23,7 @@ export const set = (storeKey: string, data: any) => {
 };
 
 /**
- * reads what's stored on <userData>/<storage-name>/<storekey>.json, 
+ * reads what's stored on <userData>/<storage-name>/<storekey>.json,
  * @param storeKey {string} - identifier/filename without extension
  */
 export const get = (storeKey: string) => {
@@ -40,7 +40,7 @@ export const get = (storeKey: string) => {
 };
 /**
  * writes to json file
- * @param _path {string} - full path to save to 
+ * @param _path {string} - full path to save to
  * @param data {any} - to jsoned
  */
 const outputJSON = (_path: string, data: any) => new Promise(

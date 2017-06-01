@@ -12,4 +12,3 @@ export const getStorageFilePath = (key: string) => {
     const xxx = _cache[key];
     return xxx;
 };
-    
