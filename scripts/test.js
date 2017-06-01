@@ -33,6 +33,8 @@ const platFormElectronMocha = isWindows
     ? "node_modules\\.bin\\electron-mocha.cmd"
     : "node_modiules/.bin/electron-mocha";
 
+const build = getFlag("--build") === "false" ? "" :
+    "npm run build &&";
 // run
 process.exit(
     require("shelljs")
@@ -40,7 +42,7 @@ process.exit(
         `${platformExport} DEBUG=\"window-state:*\" ` +
         "DEBUG_COLORS=true " +
         `WINDOW_STATE_HOME='${home}' &&` +
-        "npm run build &&" +
+        `${build}` +
         "echo $WINDOW_STATE_HOME &&" +
         ` ${platFormElectronMocha} ` +
         " ./built/__test__/**/*.test.js"
