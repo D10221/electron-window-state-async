@@ -7,11 +7,12 @@
 
 const fs = require("fs");
 const path = require("path");
+// const isNull = require("util").isNullOrUndefined;
+
 const getFlag = (key) => {
     const args = process.argv.slice(2);
     const i = args.indexOf(key);
-    if(i === -1) return null;
-    return args[i+1];
+    return (i === -1) ? false : args[i + 1];
 };
 
 const home = getFlag("--home") || process.env.WINDOW_STATE_HOME;
@@ -27,27 +28,30 @@ if (!fs.statSync(path.resolve(home)).isDirectory()) {
     console.error(`$WINDOW_STATE_HOME=${home} is not a Directory`)
     process.exit(-1);
 }
+
 const isWindows = process.platform === "win32";
 const platformExport = isWindows ? "SET" : "export";
+
 const platFormElectronMocha = isWindows
     ? "node_modules\\.bin\\electron-mocha.cmd"
     : "node_modiules/.bin/electron-mocha";
-const debug = getFlag("--debug") === "false" ? ""
-    : "DEBUG=\"window-state:*\" ";
+
+const isDebug = getFlag("--debug") !== "false";
 
 const build = getFlag("--build") === "false" ? "" :
-    "npm run build &&";
+    "npm run build";
+
+const cmds = [    
+    `${build}`,
+    `${platFormElectronMocha} ./built/__test__/**/*.test.js`
+]
+    .filter(x => x.trim() !== "")
+    .join(" &&");
 // run
-process.exit(
-    require("shelljs")
-        .exec(
-        `${platformExport} ` +
-        `${debug}` +
-        `NODE_ENV="test" ` +
-        "DEBUG_COLORS=true " +
-        `WINDOW_STATE_HOME='${home}' &&` +
-        `${build}` +
-        "echo $WINDOW_STATE_HOME &&" +
-        ` ${platFormElectronMocha} ` +
-        " ./built/__test__/**/*.test.js"
-        ).code);    
+const shell = require("shelljs");
+
+shell.env.WINDOW_STATE_HOME = home;
+shell.env.DEBUG = isDebug ? "window-state:*" : "";
+shell.env.DEBUG_COLORS = isDebug;
+shell.env.NODE_ENV = "test";
+process.exit(shell.exec(cmds, {}).code);  

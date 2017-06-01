@@ -1,12 +1,17 @@
 import { BrowserWindow } from "electron";
 import { WindowStateStore } from "../store";
 import * as assert from "assert";
+import * as fs from "fs";
 
 /**
  * TODO: Broken
  */
-describe("window store test", () => {
+describe("window store", () => {
     it("works", async () => {
+
+        const ok = fs.statSync(process.env.WINDOW_STATE_HOME).isDirectory();
+        assert.ok(ok,
+            `$WINDOW_STATE_HOME='${process.env.WINDOW_STATE_HOME}' is not a directory or doesn't exists`);
 
         const store = new WindowStateStore(
             new BrowserWindow({ show: false })
