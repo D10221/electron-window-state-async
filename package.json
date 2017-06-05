@@ -2,12 +2,14 @@
   "name": "electron-window-state-async",
   "version": "1.0.1-0",
   "description": "Electron window state async store",
+  "displayName": "Electron Window State Async",
   "private": true,
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
     "test": "export NODE_ENV=test && export DEBUG=\"window-state:*\" && npm run build && node_modules/.bin/electron-mocha ./built/__test__/**/*.test.js",
-    "build": "tsc -p .",
+    "build:index": "node ./scripts/index-page.js --run src/__app__/index.json",
+    "build": "tsc -p . && npm run build:index",
     "clean": "rimraf ./built",
     "rebuild": "npm run clean && npm run build",
     "doc": "rimraf docs && typedoc --theme minimal --out docs --mode file --exclude \"**/__test__//*\"  --excludeNotExported",
@@ -39,6 +41,8 @@
     "electron": "^1.6.10",
     "electron-mocha": "^3.4.0",
     "mini-shell": "git+https://github.com/D10221/mini-shell.git",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
     "shelljs": "^0.7.7"
   }
 }

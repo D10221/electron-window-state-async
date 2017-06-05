@@ -1,0 +1,11 @@
+{
+    "outDir": "built/__app__",
+    "fileName": "window.html",
+    "title": "My App",
+    "scripts": [
+        "window.js"
+    ],
+    "styles": [
+
+    ]
+}

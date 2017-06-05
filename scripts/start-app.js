@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-const shelljs = require("shelljs");
 
 process.env.DEBUG = "window-state:*";
 process.env.DEBUG_COLORS = "true";
