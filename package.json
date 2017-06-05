@@ -1,6 +1,6 @@
 {
   "name": "electron-window-state-async",
-  "version": "1.0.1-0",
+  "version": "1.0.2-0",
   "description": "Electron window state async store",
   "displayName": "Electron Window State Async",
   "private": true,

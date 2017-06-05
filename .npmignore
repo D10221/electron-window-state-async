@@ -6,3 +6,5 @@ built/
 **/__test__/*
 **/docs/*
 app
+**/__test__/*
+**/__app__/*
